@@ -1,0 +1,16 @@
+D:\latihan\OlahCitra\OlahCitra\bin\Debug\OlahCitra.exe.config
+D:\latihan\OlahCitra\OlahCitra\bin\Debug\OlahCitra.exe
+D:\latihan\OlahCitra\OlahCitra\bin\Debug\OlahCitra.pdb
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.csproj.AssemblyReference.cache
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.OlahCitra.resources
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.Properties.Resources.resources
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.csproj.GenerateResource.cache
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.csproj.CoreCompileInputs.cache
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.exe
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.pdb
+D:\latihan\OlahCitra\OlahCitra\bin\Debug\OlahCitra.Core.dll
+D:\latihan\OlahCitra\OlahCitra\bin\Debug\OlahCitra.Core.pdb
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.csproj.CopyComplete
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.NumericsSlider.resources
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.FormHistogram.resources
+D:\latihan\OlahCitra\OlahCitra\obj\Debug\OlahCitra.FormStatistics.resources

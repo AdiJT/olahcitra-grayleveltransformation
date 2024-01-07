@@ -1,0 +1,6 @@
+D:\latihan\OlahCitra\OlahCitra.Core\bin\Debug\OlahCitra.Core.dll
+D:\latihan\OlahCitra\OlahCitra.Core\bin\Debug\OlahCitra.Core.pdb
+D:\latihan\OlahCitra\OlahCitra.Core\obj\Debug\OlahCitra.Core.csproj.AssemblyReference.cache
+D:\latihan\OlahCitra\OlahCitra.Core\obj\Debug\OlahCitra.Core.csproj.CoreCompileInputs.cache
+D:\latihan\OlahCitra\OlahCitra.Core\obj\Debug\OlahCitra.Core.dll
+D:\latihan\OlahCitra\OlahCitra.Core\obj\Debug\OlahCitra.Core.pdb

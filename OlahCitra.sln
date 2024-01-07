@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OlahCitra", "OlahCitra\OlahCitra.csproj", "{CCC565A1-DA75-47DF-B905-58DB8FE3B67B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OlahCitra.Core", "OlahCitra.Core\OlahCitra.Core.csproj", "{09384BFB-F1F1-4E3E-B48B-FB748E5AC541}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCC565A1-DA75-47DF-B905-58DB8FE3B67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC565A1-DA75-47DF-B905-58DB8FE3B67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC565A1-DA75-47DF-B905-58DB8FE3B67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC565A1-DA75-47DF-B905-58DB8FE3B67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09384BFB-F1F1-4E3E-B48B-FB748E5AC541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09384BFB-F1F1-4E3E-B48B-FB748E5AC541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09384BFB-F1F1-4E3E-B48B-FB748E5AC541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09384BFB-F1F1-4E3E-B48B-FB748E5AC541}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D29CC99A-F1CD-4226-A94C-E45BD7171882}
+	EndGlobalSection
+EndGlobal
