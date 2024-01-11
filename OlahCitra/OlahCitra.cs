@@ -23,6 +23,11 @@ namespace OlahCitra
         public (int, int) PieceWisePoint1 { get => ((int)numericUpDownR1.Value, (int)numericUpDownS1.Value); }
         public (int, int) PieceWisePoint2 { get => ((int)numericUpDownR2.Value, (int)numericUpDownS2.Value); }
 
+        public (int, int) GrayLevelSplitRange { get => ((int)numericUpDownGraySplitR1.Value, (int)numericUpDownGraySplitR2.Value); }
+        public int GraySplitMaxGray { get => (int)numericUpDownGraySplitMax.Value; }
+        public int GraySplitMinGray { get => (int)numericUpDownGraySplitMin.Value; }
+        public bool GraySplitMantainBackground { get => checkBoxMaintan.Checked; }
+
         private FormHistogram formHistogramGreyScale = new FormHistogram(); 
         private FormHistogram formHistogramHasil = new FormHistogram(); 
 
@@ -201,6 +206,19 @@ namespace OlahCitra
                 _currentStrategy = new PieceWiseStrategy(this);
 
             tableLayoutPanelPieceWise.Enabled = radioButtonPieceWise.Checked;
+        }
+
+        private void radioButtonGraySplit_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonGraySplit.Checked == true)
+                _currentStrategy = new GrayLevelSplitStrategy(this);
+
+             tableLayoutPanelGraySplit.Enabled = radioButtonGraySplit.Checked;
+        }
+
+        private void checkBoxMaintan_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownGraySplitMin.Enabled = !checkBoxMaintan.Checked;
         }
     }
 }

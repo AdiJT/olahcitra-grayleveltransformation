@@ -79,5 +79,26 @@ namespace OlahCitra.Core
                 return (int)output;
             };
         }
+
+        public static Func<int, int> GraySplitting((int, int) range, int maxGrayLevel, int minGrayLevel, bool maintainBackgroundTonality)
+        {
+            if (range.Item1 > range.Item2)
+                throw new ArgumentException();
+
+            return (g) =>
+            {
+                if(range.Item1 <= g && g <= range.Item2)
+                {
+                    return maxGrayLevel;
+                }
+                else
+                {
+                    if (maintainBackgroundTonality)
+                        return g;
+                    else
+                        return minGrayLevel;
+                }
+            };
+        }
     }
 }

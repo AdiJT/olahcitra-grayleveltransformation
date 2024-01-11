@@ -59,6 +59,7 @@
     <Compile Include="FormStatistics.Designer.cs">
       <DependentUpon>FormStatistics.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\GrayLevelSplitStrategy.cs" />
     <Compile Include="Strategy\HistogramEqStrategy.cs" />
     <Compile Include="Strategy\LogStrategy.cs" />
     <Compile Include="Strategy\NegativeStrategy.cs" />
