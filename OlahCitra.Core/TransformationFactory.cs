@@ -101,13 +101,12 @@ namespace OlahCitra.Core
             };
         }
 
-        public static Func<int, int> BitSplitting(int bit)
+        public static Func<int, int> BitSplitting(int bitPlane, bool makeMaxGraylevel = false)
         {
-            if (bit < 0 || bit > 7)
-                throw new ArgumentException("Bit antara 0 sampai 7", nameof(bit));
+            if (bitPlane < 0 || bitPlane > 7)
+                throw new ArgumentException("Bit antara 0 sampai 7", nameof(bitPlane));
 
-            int mask = (int)Math.Pow(2, bit);
-
+            int mask = (int)Math.Pow(2, bitPlane);
 
             var memo = new int?[256];
 
@@ -116,11 +115,11 @@ namespace OlahCitra.Core
                 if (memo[g].HasValue)
                     return memo[g].Value;
 
-                var masked = g & mask;
-                var shifted = masked >> (bit);
-                var result = shifted * 255;
-
-                memo[g] = result;
+                int result = 0;
+                if (makeMaxGraylevel)
+                    result = ((g & mask) >> bitPlane) * 255;
+                else
+                    result = g & mask;
 
                 return result;
             };

@@ -35,6 +35,10 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBoxHasil = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanelBitSplit = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDownBItPlane = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxBitSplitMaxGrayLevel = new System.Windows.Forms.CheckBox();
+            this.radioButtonBitSplit = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanelGraySplit = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDownGraySplitMax = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownGraySplitMin = new System.Windows.Forms.NumericUpDown();
@@ -72,14 +76,14 @@
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonBitSplit = new System.Windows.Forms.RadioButton();
-            this.numericUpDownBItPlane = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAsli)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHasil)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.tableLayoutPanelBitSplit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).BeginInit();
             this.tableLayoutPanelGraySplit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraySplitMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraySplitMin)).BeginInit();
@@ -93,7 +97,6 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayScale)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -163,7 +166,7 @@
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
-            this.groupBox4.Controls.Add(this.numericUpDownBItPlane);
+            this.groupBox4.Controls.Add(this.tableLayoutPanelBitSplit);
             this.groupBox4.Controls.Add(this.radioButtonBitSplit);
             this.groupBox4.Controls.Add(this.tableLayoutPanelGraySplit);
             this.groupBox4.Controls.Add(this.radioButtonGraySplit);
@@ -184,6 +187,56 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // tableLayoutPanelBitSplit
+            // 
+            this.tableLayoutPanelBitSplit.ColumnCount = 1;
+            this.tableLayoutPanelBitSplit.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelBitSplit.Controls.Add(this.numericUpDownBItPlane, 0, 1);
+            this.tableLayoutPanelBitSplit.Controls.Add(this.checkBoxBitSplitMaxGrayLevel, 0, 0);
+            this.tableLayoutPanelBitSplit.Enabled = false;
+            this.tableLayoutPanelBitSplit.Location = new System.Drawing.Point(663, 43);
+            this.tableLayoutPanelBitSplit.Name = "tableLayoutPanelBitSplit";
+            this.tableLayoutPanelBitSplit.RowCount = 2;
+            this.tableLayoutPanelBitSplit.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBitSplit.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBitSplit.Size = new System.Drawing.Size(112, 46);
+            this.tableLayoutPanelBitSplit.TabIndex = 16;
+            // 
+            // numericUpDownBItPlane
+            // 
+            this.numericUpDownBItPlane.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDownBItPlane.Location = new System.Drawing.Point(3, 26);
+            this.numericUpDownBItPlane.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.numericUpDownBItPlane.Name = "numericUpDownBItPlane";
+            this.numericUpDownBItPlane.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownBItPlane.TabIndex = 19;
+            // 
+            // checkBoxBitSplitMaxGrayLevel
+            // 
+            this.checkBoxBitSplitMaxGrayLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxBitSplitMaxGrayLevel.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxBitSplitMaxGrayLevel.Name = "checkBoxBitSplitMaxGrayLevel";
+            this.checkBoxBitSplitMaxGrayLevel.Size = new System.Drawing.Size(106, 17);
+            this.checkBoxBitSplitMaxGrayLevel.TabIndex = 0;
+            this.checkBoxBitSplitMaxGrayLevel.Text = "Max Grey Level";
+            this.checkBoxBitSplitMaxGrayLevel.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonBitSplit
+            // 
+            this.radioButtonBitSplit.AutoSize = true;
+            this.radioButtonBitSplit.Location = new System.Drawing.Point(663, 19);
+            this.radioButtonBitSplit.Name = "radioButtonBitSplit";
+            this.radioButtonBitSplit.Size = new System.Drawing.Size(101, 17);
+            this.radioButtonBitSplit.TabIndex = 14;
+            this.radioButtonBitSplit.TabStop = true;
+            this.radioButtonBitSplit.Text = "Bit Plane Slicing";
+            this.radioButtonBitSplit.UseVisualStyleBackColor = true;
+            this.radioButtonBitSplit.CheckedChanged += new System.EventHandler(this.radioButtonBitSplit_CheckedChanged);
             // 
             // tableLayoutPanelGraySplit
             // 
@@ -623,31 +676,6 @@
             // 
             this.saveFileDialog1.Filter = "JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonBitSplit
-            // 
-            this.radioButtonBitSplit.AutoSize = true;
-            this.radioButtonBitSplit.Location = new System.Drawing.Point(663, 19);
-            this.radioButtonBitSplit.Name = "radioButtonBitSplit";
-            this.radioButtonBitSplit.Size = new System.Drawing.Size(101, 17);
-            this.radioButtonBitSplit.TabIndex = 14;
-            this.radioButtonBitSplit.TabStop = true;
-            this.radioButtonBitSplit.Text = "Bit Plane Slicing";
-            this.radioButtonBitSplit.UseVisualStyleBackColor = true;
-            this.radioButtonBitSplit.CheckedChanged += new System.EventHandler(this.radioButtonBitSplit_CheckedChanged);
-            // 
-            // numericUpDownBItPlane
-            // 
-            this.numericUpDownBItPlane.Enabled = false;
-            this.numericUpDownBItPlane.Location = new System.Drawing.Point(663, 43);
-            this.numericUpDownBItPlane.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.numericUpDownBItPlane.Name = "numericUpDownBItPlane";
-            this.numericUpDownBItPlane.Size = new System.Drawing.Size(101, 20);
-            this.numericUpDownBItPlane.TabIndex = 15;
-            // 
             // OlahCitra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -664,6 +692,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHasil)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tableLayoutPanelBitSplit.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).EndInit();
             this.tableLayoutPanelGraySplit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraySplitMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraySplitMin)).EndInit();
@@ -677,7 +707,6 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayScale)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -728,7 +757,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.RadioButton radioButtonBitSplit;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBitSplit;
         private System.Windows.Forms.NumericUpDown numericUpDownBItPlane;
+        private System.Windows.Forms.CheckBox checkBoxBitSplitMaxGrayLevel;
     }
 }
 

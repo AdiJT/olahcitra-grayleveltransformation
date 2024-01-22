@@ -20,9 +20,12 @@ namespace OlahCitra.Strategy
             if (grayScale == null)
                 throw new Exception("Gambar GreyScale belum dipilih");
 
-            var bitPlane = _olahCitraForm.BitPlane;
+            var bitPlane = _olahCitraForm.BitSplitBitPlane;
+            var makeMaxGrayLevel = _olahCitraForm.BitSplitMaxGrayLevel;
 
-            return ImageProcessing.GrayLevelTransformation(grayScale, TransformationFactory.BitSplitting(bitPlane));
+            return ImageProcessing.GrayLevelTransformation(
+                grayScale, 
+                TransformationFactory.BitSplitting(bitPlane, makeMaxGrayLevel));
         }
     }
 }

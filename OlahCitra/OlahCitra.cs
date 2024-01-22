@@ -1,13 +1,7 @@
 ﻿using OlahCitra.Core;
 using OlahCitra.Strategy;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,7 +23,8 @@ namespace OlahCitra
         public int GraySplitMinGray { get => (int)numericUpDownGraySplitMin.Value; }
         public bool GraySplitMantainBackground { get => checkBoxMaintan.Checked; }
 
-        public int BitPlane { get => (int)numericUpDownBItPlane.Value; }
+        public int BitSplitBitPlane { get => (int)numericUpDownBItPlane.Value; }
+        public bool BitSplitMaxGrayLevel { get => checkBoxBitSplitMaxGrayLevel.Checked; }
 
         private FormHistogram formHistogramGreyScale = new FormHistogram(); 
         private FormHistogram formHistogramHasil = new FormHistogram(); 
@@ -238,7 +233,7 @@ namespace OlahCitra
             if(radioButtonBitSplit.Checked == true)
                 _currentStrategy = new BitPlaneSlicingStrategy(this);
 
-            numericUpDownBItPlane.Enabled = radioButtonBitSplit.Checked;
+            tableLayoutPanelBitSplit.Enabled = radioButtonBitSplit.Checked;
         }
     }
 }
