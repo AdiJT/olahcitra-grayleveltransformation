@@ -18,6 +18,7 @@ namespace OlahCitra
         private TransformationStrategy _currentStrategy;
 
         public Bitmap GreyScaleImage { get => new Bitmap(pictureBoxGrayScale.Image); }
+
         public double Gamma { get => double.Parse(textBoxGamma.Text); }
 
         public (int, int) PieceWisePoint1 { get => ((int)numericUpDownR1.Value, (int)numericUpDownS1.Value); }
@@ -27,6 +28,8 @@ namespace OlahCitra
         public int GraySplitMaxGray { get => (int)numericUpDownGraySplitMax.Value; }
         public int GraySplitMinGray { get => (int)numericUpDownGraySplitMin.Value; }
         public bool GraySplitMantainBackground { get => checkBoxMaintan.Checked; }
+
+        public int BitPlane { get => (int)numericUpDownBItPlane.Value; }
 
         private FormHistogram formHistogramGreyScale = new FormHistogram(); 
         private FormHistogram formHistogramHasil = new FormHistogram(); 
@@ -219,6 +222,23 @@ namespace OlahCitra
         private void checkBoxMaintan_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownGraySplitMin.Enabled = !checkBoxMaintan.Checked;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap hasil = new Bitmap(pictureBoxHasil.Image);
+                hasil.Save(saveFileDialog1.FileName);
+            }
+        }
+
+        private void radioButtonBitSplit_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonBitSplit.Checked == true)
+                _currentStrategy = new BitPlaneSlicingStrategy(this);
+
+            numericUpDownBItPlane.Enabled = radioButtonBitSplit.Checked;
         }
     }
 }

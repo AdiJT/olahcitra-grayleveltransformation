@@ -67,9 +67,13 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBoxGrayScale = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.radioButtonBitSplit = new System.Windows.Forms.RadioButton();
+            this.numericUpDownBItPlane = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAsli)).BeginInit();
@@ -89,6 +93,7 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayScale)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -158,6 +163,8 @@
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.numericUpDownBItPlane);
+            this.groupBox4.Controls.Add(this.radioButtonBitSplit);
             this.groupBox4.Controls.Add(this.tableLayoutPanelGraySplit);
             this.groupBox4.Controls.Add(this.radioButtonGraySplit);
             this.groupBox4.Controls.Add(this.tableLayoutPanelPieceWise);
@@ -567,6 +574,7 @@
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.buttonTransform);
             this.panel1.Controls.Add(this.buttonOpenImage);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -574,6 +582,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1014, 26);
             this.panel1.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(134, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonTransform
             // 
@@ -600,6 +618,35 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "JPEG files|*.jpeg|PNG files|*.png|All files|*.*";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "JPEG files|*.jpeg|All files|*.*";
+            // 
+            // radioButtonBitSplit
+            // 
+            this.radioButtonBitSplit.AutoSize = true;
+            this.radioButtonBitSplit.Location = new System.Drawing.Point(663, 19);
+            this.radioButtonBitSplit.Name = "radioButtonBitSplit";
+            this.radioButtonBitSplit.Size = new System.Drawing.Size(101, 17);
+            this.radioButtonBitSplit.TabIndex = 14;
+            this.radioButtonBitSplit.TabStop = true;
+            this.radioButtonBitSplit.Text = "Bit Plane Slicing";
+            this.radioButtonBitSplit.UseVisualStyleBackColor = true;
+            this.radioButtonBitSplit.CheckedChanged += new System.EventHandler(this.radioButtonBitSplit_CheckedChanged);
+            // 
+            // numericUpDownBItPlane
+            // 
+            this.numericUpDownBItPlane.Enabled = false;
+            this.numericUpDownBItPlane.Location = new System.Drawing.Point(663, 43);
+            this.numericUpDownBItPlane.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.numericUpDownBItPlane.Name = "numericUpDownBItPlane";
+            this.numericUpDownBItPlane.Size = new System.Drawing.Size(101, 20);
+            this.numericUpDownBItPlane.TabIndex = 15;
             // 
             // OlahCitra
             // 
@@ -630,6 +677,7 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayScale)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -677,6 +725,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelGraySplitR2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.RadioButton radioButtonBitSplit;
+        private System.Windows.Forms.NumericUpDown numericUpDownBItPlane;
     }
 }
 
