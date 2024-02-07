@@ -1,6 +1,6 @@
 ﻿namespace OlahCitra
 {
-    partial class OlahCitra
+    partial class FormOlahCitra
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OlahCitra));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBoxAsli = new System.Windows.Forms.PictureBox();
@@ -676,13 +676,13 @@
             // 
             this.saveFileDialog1.Filter = "JPEG files|*.jpeg|All files|*.*";
             // 
-            // OlahCitra
+            // FormOlahCitra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1020, 544);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "OlahCitra";
+            this.Name = "FormOlahCitra";
             this.Text = "Pengolahan Citra";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanel1.ResumeLayout(false);

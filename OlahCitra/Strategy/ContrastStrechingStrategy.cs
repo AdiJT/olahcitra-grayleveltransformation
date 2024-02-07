@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class ContrastStrechingStrategy : TransformationStrategy
     {
-        public ContrastStrechingStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public ContrastStrechingStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

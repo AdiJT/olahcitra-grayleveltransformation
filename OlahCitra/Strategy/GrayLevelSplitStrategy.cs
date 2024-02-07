@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class GrayLevelSplitStrategy : TransformationStrategy
     {
-        public GrayLevelSplitStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public GrayLevelSplitStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

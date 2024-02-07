@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class LogStrategy : TransformationStrategy
     {
-        public LogStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public LogStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

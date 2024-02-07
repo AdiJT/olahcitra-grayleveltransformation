@@ -16,7 +16,7 @@ namespace OlahCitra
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new OlahCitra());
+            Application.Run(new FormOlahCitra());
         }
     }
 }

@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class PieceWiseStrategy : TransformationStrategy
     {
-        public PieceWiseStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public PieceWiseStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class BitPlaneSlicingStrategy : TransformationStrategy
     {
-        public BitPlaneSlicingStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public BitPlaneSlicingStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class HistogramEqStrategy : TransformationStrategy
     {
-        public HistogramEqStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public HistogramEqStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

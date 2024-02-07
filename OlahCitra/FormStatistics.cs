@@ -18,23 +18,7 @@ namespace OlahCitra
             InitializeComponent();
         }
 
-        public string Title
-        {
-            set => labelStatistics.Text = value;
-        }
-
-        public ImageStatistics Statistics { 
-            set 
-            {
-                progressBarMin.Value = value.MininimumGrayLevel;
-                labelCurrentMin.Text = value.MininimumGrayLevel.ToString();
-
-                progressBarMax.Value = value.MaximumGrayLevel;
-                labelCurrentMax.Text = value.MaximumGrayLevel.ToString();
-
-                progressBarAvg.Value = (int)value.AverageGrayLevel;
-                labelCurrentAvg.Text = value.AverageGrayLevel.ToString("F3");
-            }
-        }
+        public void SetTitle(string title) => imageStatistics.Title = title;
+        public void SetStatistics(ImageStatistics statistics) => imageStatistics.Statistics = statistics;
     }
 }

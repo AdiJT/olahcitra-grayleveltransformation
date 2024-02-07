@@ -10,7 +10,7 @@ namespace OlahCitra.Strategy
 {
     public class NegativeStrategy : TransformationStrategy
     {
-        public NegativeStrategy(OlahCitra olahCitraForm) : base(olahCitraForm)
+        public NegativeStrategy(FormOlahCitra olahCitraForm) : base(olahCitraForm)
         {
         }
 

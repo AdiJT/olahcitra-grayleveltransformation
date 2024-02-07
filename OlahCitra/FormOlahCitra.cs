@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace OlahCitra
 {
-    public partial class OlahCitra : Form
+    public partial class FormOlahCitra : Form
     {
         private TransformationStrategy _currentStrategy;
 
@@ -32,26 +32,26 @@ namespace OlahCitra
         private FormStatistics formStatisticsGreyScale = new FormStatistics();
         private FormStatistics formStatisticsHasil = new FormStatistics();
 
-        public OlahCitra()
+        public FormOlahCitra()
         {
             InitializeComponent();
 
             var greyScale = new Bitmap(pictureBoxGrayScale.Image);
 
-            formHistogramGreyScale.Title = "Histogram Gambar GreyScale";
-            formHistogramHasil.Title = "Histogram Gambar Hasil Transformasi";
+            formHistogramGreyScale.SetTitle("Histogram Gambar GreyScale");
+            formHistogramHasil.SetTitle("Histogram Gambar Hasil Transformasi");
 
-            formHistogramGreyScale.Image = greyScale;
-            formHistogramHasil.Image = greyScale;
+            formHistogramGreyScale.SetHistogram(greyScale);
+            formHistogramHasil.SetHistogram(greyScale);
 
             formHistogramGreyScale.Show();
             formHistogramHasil.Show();
 
-            formStatisticsGreyScale.Title = "Statistik Gambar GreyScale";
-            formStatisticsHasil.Title = "Statistik Gambar Hasil Transformasi";
+            formStatisticsGreyScale.SetTitle("Statistik Gambar GreyScale");
+            formStatisticsHasil.SetTitle("Statistik Gambar Hasil Transformasi");
 
-            formStatisticsGreyScale.Statistics = ImageProcessing.MakeStatistic(greyScale);
-            formStatisticsHasil.Statistics = ImageProcessing.MakeStatistic(greyScale);
+            formStatisticsGreyScale.SetStatistics(ImageProcessing.MakeStatistic(greyScale));
+            formStatisticsHasil.SetStatistics(ImageProcessing.MakeStatistic(greyScale));
 
             formStatisticsGreyScale.Show();
             formStatisticsHasil.Show();
@@ -70,20 +70,20 @@ namespace OlahCitra
                 if (formStatisticsGreyScale.IsDisposed)
                 {
                     formStatisticsGreyScale = new FormStatistics();
-                    formStatisticsGreyScale.Title = "Statistik Gambar GreyScale";
+                    formStatisticsGreyScale.SetTitle("Statistik Gambar GreyScale");
                     formStatisticsGreyScale.Show();
                 }
 
                 formStatisticsGreyScale.Enabled = false;
                 await Task.Run(() => greyScaleStatistics = ImageProcessing.MakeStatistic(greyScale));
-                formStatisticsGreyScale.Statistics = greyScaleStatistics;
+                formStatisticsGreyScale.SetStatistics(greyScaleStatistics);
                 formStatisticsGreyScale.Enabled = true;
             }
 
             if (formStatisticsHasil.IsDisposed)
             {
                 formStatisticsHasil = new FormStatistics();
-                formStatisticsHasil.Title = "Statistik Gambar Hasil Transformasi";
+                formStatisticsHasil.SetTitle("Statistik Gambar Hasil Transformasi");
                 formStatisticsHasil.Show();
             }
 
@@ -91,7 +91,7 @@ namespace OlahCitra
             await Task.Run(() => hasilStatistics = ImageProcessing.MakeStatistic(hasil));
             formStatisticsHasil.Enabled = true;
 
-            formStatisticsHasil.Statistics = hasilStatistics;
+            formStatisticsHasil.SetStatistics(hasilStatistics);
         }
 
         void UpdateHistogram(bool onlyHasilChanged)
@@ -101,21 +101,21 @@ namespace OlahCitra
                 if (formHistogramGreyScale.IsDisposed)
                 {
                     formHistogramGreyScale = new FormHistogram();
-                    formHistogramGreyScale.Title = "Histogram Gambar GreyScale";
+                    formHistogramGreyScale.SetTitle("Histogram Gambar GreyScale");
                     formHistogramGreyScale.Show();
                 }
 
-                formHistogramGreyScale.Image = new Bitmap(pictureBoxGrayScale.Image);
+                formHistogramGreyScale.SetHistogram(new Bitmap(pictureBoxGrayScale.Image));
             }
 
             if (formHistogramHasil.IsDisposed)
             {
                 formHistogramHasil = new FormHistogram();
-                formHistogramHasil.Title = "Histogram Gambar Hasil Transformasi";
+                formHistogramHasil.SetTitle("Histogram Gambar Hasil Transformasi");
                 formHistogramHasil.Show();
             }
 
-            formHistogramHasil.Image = new Bitmap(pictureBoxHasil.Image);
+            formHistogramHasil.SetHistogram(new Bitmap(pictureBoxHasil.Image));
         }
         
         private async void buttonOpenImage_Click(object sender, EventArgs e)
