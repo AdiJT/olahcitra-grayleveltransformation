@@ -65,6 +65,12 @@
     <Compile Include="FormHistogram.Designer.cs">
       <DependentUpon>FormHistogram.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormHistogramDanStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHistogramDanStatistics.Designer.cs">
+      <DependentUpon>FormHistogramDanStatistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormStatistics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormHistogram.resx">
       <DependentUpon>FormHistogram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHistogramDanStatistics.resx">
+      <DependentUpon>FormHistogramDanStatistics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStatistics.resx">
       <DependentUpon>FormStatistics.cs</DependentUpon>

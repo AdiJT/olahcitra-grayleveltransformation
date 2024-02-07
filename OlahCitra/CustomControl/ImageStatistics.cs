@@ -13,7 +13,7 @@ namespace OlahCitra.CustomControl
 {
     public partial class ImageStatistics : UserControl
     {
-        public OlahCitra.Core.ImageStatistics _imageStatistics;
+        private OlahCitra.Core.ImageStatistics _imageStatistics;
 
         public ImageStatistics()
         {

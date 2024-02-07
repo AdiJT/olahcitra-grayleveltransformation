@@ -26,11 +26,7 @@ namespace OlahCitra
         public int BitSplitBitPlane { get => (int)numericUpDownBItPlane.Value; }
         public bool BitSplitMaxGrayLevel { get => checkBoxBitSplitMaxGrayLevel.Checked; }
 
-        private FormHistogram formHistogramGreyScale = new FormHistogram(); 
-        private FormHistogram formHistogramHasil = new FormHistogram(); 
-
-        private FormStatistics formStatisticsGreyScale = new FormStatistics();
-        private FormStatistics formStatisticsHasil = new FormStatistics();
+        private FormHistogramDanStatistics _formHistogramDanStatistics;
 
         public FormOlahCitra()
         {
@@ -38,84 +34,27 @@ namespace OlahCitra
 
             var greyScale = new Bitmap(pictureBoxGrayScale.Image);
 
-            formHistogramGreyScale.SetTitle("Histogram Gambar GreyScale");
-            formHistogramHasil.SetTitle("Histogram Gambar Hasil Transformasi");
+            _formHistogramDanStatistics = new FormHistogramDanStatistics();
+            _formHistogramDanStatistics.UpdateHistogram(greyScale, greyScale);
+            _formHistogramDanStatistics.UpdateStatistics(greyScale, greyScale);
 
-            formHistogramGreyScale.SetHistogram(greyScale);
-            formHistogramHasil.SetHistogram(greyScale);
-
-            formHistogramGreyScale.Show();
-            formHistogramHasil.Show();
-
-            formStatisticsGreyScale.SetTitle("Statistik Gambar GreyScale");
-            formStatisticsHasil.SetTitle("Statistik Gambar Hasil Transformasi");
-
-            formStatisticsGreyScale.SetStatistics(ImageProcessing.MakeStatistic(greyScale));
-            formStatisticsHasil.SetStatistics(ImageProcessing.MakeStatistic(greyScale));
-
-            formStatisticsGreyScale.Show();
-            formStatisticsHasil.Show();
+            _formHistogramDanStatistics.Show();
         }
 
-        async void UpdateStatistics(bool onlyHasilChanged)
+        void UpdateHistogramDanStatistics(bool onlyHasilChanged)
         {
             var greyScale = new Bitmap(pictureBoxGrayScale.Image);
             var hasil = new Bitmap(pictureBoxHasil.Image);
 
-            ImageStatistics greyScaleStatistics = new ImageStatistics();
-            ImageStatistics hasilStatistics = new ImageStatistics();
-
-            if (onlyHasilChanged == false)
+            if (_formHistogramDanStatistics.IsDisposed)
             {
-                if (formStatisticsGreyScale.IsDisposed)
-                {
-                    formStatisticsGreyScale = new FormStatistics();
-                    formStatisticsGreyScale.SetTitle("Statistik Gambar GreyScale");
-                    formStatisticsGreyScale.Show();
-                }
-
-                formStatisticsGreyScale.Enabled = false;
-                await Task.Run(() => greyScaleStatistics = ImageProcessing.MakeStatistic(greyScale));
-                formStatisticsGreyScale.SetStatistics(greyScaleStatistics);
-                formStatisticsGreyScale.Enabled = true;
+                onlyHasilChanged = false;
+                _formHistogramDanStatistics = new FormHistogramDanStatistics();
+                _formHistogramDanStatistics.Show();
             }
 
-            if (formStatisticsHasil.IsDisposed)
-            {
-                formStatisticsHasil = new FormStatistics();
-                formStatisticsHasil.SetTitle("Statistik Gambar Hasil Transformasi");
-                formStatisticsHasil.Show();
-            }
-
-            formStatisticsHasil.Enabled = false;
-            await Task.Run(() => hasilStatistics = ImageProcessing.MakeStatistic(hasil));
-            formStatisticsHasil.Enabled = true;
-
-            formStatisticsHasil.SetStatistics(hasilStatistics);
-        }
-
-        void UpdateHistogram(bool onlyHasilChanged)
-        {
-            if (onlyHasilChanged == false)
-            {
-                if (formHistogramGreyScale.IsDisposed)
-                {
-                    formHistogramGreyScale = new FormHistogram();
-                    formHistogramGreyScale.SetTitle("Histogram Gambar GreyScale");
-                    formHistogramGreyScale.Show();
-                }
-
-                formHistogramGreyScale.SetHistogram(new Bitmap(pictureBoxGrayScale.Image));
-            }
-
-            if (formHistogramHasil.IsDisposed)
-            {
-                formHistogramHasil = new FormHistogram();
-                formHistogramHasil.SetTitle("Histogram Gambar Hasil Transformasi");
-                formHistogramHasil.Show();
-            }
-
-            formHistogramHasil.SetHistogram(new Bitmap(pictureBoxHasil.Image));
+            _formHistogramDanStatistics.UpdateHistogram(greyScale, hasil, onlyHasilChanged);
+            _formHistogramDanStatistics.UpdateStatistics(greyScale, hasil, onlyHasilChanged);
         }
         
         private async void buttonOpenImage_Click(object sender, EventArgs e)
@@ -137,8 +76,7 @@ namespace OlahCitra
                 pictureBoxGrayScale.Image = greyScale;
                 pictureBoxHasil.Image = greyScale;
 
-                UpdateHistogram(false);
-                UpdateStatistics(false);
+                UpdateHistogramDanStatistics(false);
             }
         }
 
@@ -166,8 +104,7 @@ namespace OlahCitra
 
                 pictureBoxHasil.Image = hasil;
 
-                UpdateHistogram(true);
-                UpdateStatistics(true);
+                UpdateHistogramDanStatistics(true);
             }
         }
 
