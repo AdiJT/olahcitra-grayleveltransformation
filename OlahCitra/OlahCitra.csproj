@@ -64,12 +64,6 @@
     <Compile Include="Strategy\HistogramEqStrategy.cs" />
     <Compile Include="Strategy\LogStrategy.cs" />
     <Compile Include="Strategy\NegativeStrategy.cs" />
-    <Compile Include="NumericsSlider.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NumericsSlider.Designer.cs">
-      <DependentUpon>NumericsSlider.cs</DependentUpon>
-    </Compile>
     <Compile Include="OlahCitra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,9 +80,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStatistics.resx">
       <DependentUpon>FormStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NumericsSlider.resx">
-      <DependentUpon>NumericsSlider.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OlahCitra.resx">
       <DependentUpon>OlahCitra.cs</DependentUpon>

@@ -9,11 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OlahCitra
+namespace OlahCitra.CustomControl
 {
-    public partial class FormHistogram : Form
+    public partial class Histogram : UserControl
     {
-        public Bitmap Image { set
+        public Bitmap Image
+        {
+            set
             {
                 chartHistogram.Series["Histogram"].Points.Clear();
                 chartNormalizedHistogram.Series["Normalized Histogram"].Points.Clear();
@@ -25,17 +27,17 @@ namespace OlahCitra
                 chartHistogram.ChartAreas[0].Axes[1].Maximum = histogram.Max();
                 chartHistogram.ChartAreas[0].Axes[1].Minimum = 0;
 
-                for(int i = 0; i < histogram.Length; i++)
+                for (int i = 0; i < histogram.Length; i++)
                 {
                     chartHistogram.Series["Histogram"].Points.AddXY(i, histogram[i]);
                     chartNormalizedHistogram.Series["Normalized Histogram"].Points.AddXY(i, normalizedHistogram[i]);
                 }
-            } 
+            }
         }
 
         public string Title { set => labelHistogram.Text = value; }
 
-        public FormHistogram()
+        public Histogram()
         {
             InitializeComponent();
         }
