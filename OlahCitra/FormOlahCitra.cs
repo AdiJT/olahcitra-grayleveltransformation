@@ -11,7 +11,7 @@ namespace OlahCitra
     {
         private TransformationStrategy _currentStrategy;
 
-        public Bitmap GreyScaleImage { get => new Bitmap(pictureBoxGrayScale.Image); }
+        public Bitmap GreyScaleImage { get => pictureBoxGrayScale.Image; }
 
         public double Gamma { get => double.Parse(textBoxGamma.Text); }
 

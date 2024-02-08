@@ -31,9 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxAsli = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxHasil = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelBitSplit = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDownBItPlane = new System.Windows.Forms.NumericUpDown();
@@ -69,18 +67,18 @@
             this.radioButtonNegatif = new System.Windows.Forms.RadioButton();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxGrayScale = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
+            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
+            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAsli)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHasil)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanelBitSplit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBItPlane)).BeginInit();
@@ -95,7 +93,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownS1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownR1)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayScale)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,17 +128,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Foto Asli";
             // 
-            // pictureBoxAsli
-            // 
-            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAsli.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxAsli.Image")));
-            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxAsli.Name = "pictureBoxAsli";
-            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
-            this.pictureBoxAsli.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxAsli.TabIndex = 2;
-            this.pictureBoxAsli.TabStop = false;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBoxHasil);
@@ -152,16 +138,6 @@
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hasil Transformasi";
-            // 
-            // pictureBoxHasil
-            // 
-            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxHasil.Name = "pictureBoxHasil";
-            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
-            this.pictureBoxHasil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxHasil.TabIndex = 1;
-            this.pictureBoxHasil.TabStop = false;
             // 
             // groupBox4
             // 
@@ -613,17 +589,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gray Scale";
             // 
-            // pictureBoxGrayScale
-            // 
-            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxGrayScale.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxGrayScale.Image")));
-            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
-            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
-            this.pictureBoxGrayScale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxGrayScale.TabIndex = 2;
-            this.pictureBoxGrayScale.TabStop = false;
-            // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
@@ -676,6 +641,36 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
+            // pictureBoxAsli
+            // 
+            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
+            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxAsli.Name = "pictureBoxAsli";
+            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
+            this.pictureBoxAsli.TabIndex = 0;
+            this.pictureBoxAsli.Title = "Foto Asli";
+            // 
+            // pictureBoxGrayScale
+            // 
+            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
+            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
+            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
+            this.pictureBoxGrayScale.TabIndex = 0;
+            this.pictureBoxGrayScale.Title = "Grey Scale";
+            // 
+            // pictureBoxHasil
+            // 
+            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
+            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxHasil.Name = "pictureBoxHasil";
+            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
+            this.pictureBoxHasil.TabIndex = 0;
+            this.pictureBoxHasil.Title = "Hasil Transformasi";
+            // 
             // FormOlahCitra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -687,9 +682,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAsli)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHasil)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tableLayoutPanelBitSplit.ResumeLayout(false);
@@ -705,7 +698,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownS1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownR1)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGrayScale)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -719,15 +711,12 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox groupBox2;
-        public System.Windows.Forms.PictureBox pictureBoxHasil;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.RadioButton radioButtonNegatif;
         private System.Windows.Forms.RadioButton radioButtonLog;
-        private System.Windows.Forms.PictureBox pictureBoxAsli;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonOpenImage;
         private System.Windows.Forms.Button buttonTransform;
-        private System.Windows.Forms.PictureBox pictureBoxGrayScale;
         private System.Windows.Forms.RadioButton radioButtonPower;
         private System.Windows.Forms.Label labelGamma;
         private System.Windows.Forms.TextBox textBoxGamma;
@@ -760,6 +749,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBitSplit;
         private System.Windows.Forms.NumericUpDown numericUpDownBItPlane;
         private System.Windows.Forms.CheckBox checkBoxBitSplitMaxGrayLevel;
+        private CustomControl.CustomPictureBox pictureBoxAsli;
+        private CustomControl.CustomPictureBox pictureBoxGrayScale;
+        private CustomControl.CustomPictureBox pictureBoxHasil;
     }
 }
 
