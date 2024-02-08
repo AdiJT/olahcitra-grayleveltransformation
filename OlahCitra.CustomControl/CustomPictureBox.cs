@@ -24,18 +24,24 @@ namespace OlahCitra.CustomControl
 
         private void CustomPictureBox_Click(object sender, EventArgs e)
         {
-            var form = new Form();
-            var pictureBox = new PictureBox();
-            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox.Image = Image;
-            pictureBox.Dock = DockStyle.Fill;
+            if(_form == null || _form.IsDisposed == true)
+            {
+                _form = new Form();
+                var pictureBox = new PictureBox();
+                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox.Image = Image;
+                pictureBox.Dock = DockStyle.Fill;
+                pictureBox.Name = "pictureBox";
 
-            form.Text = Title;
-            form.WindowState = FormWindowState.Maximized;
+                _form.Text = Title;
+                _form.WindowState = FormWindowState.Maximized;
 
-            form.Controls.Add(pictureBox);
-            form.ShowDialog();
+                _form.Controls.Add(pictureBox);
+                _form.Show();
+            }
         }
+
+        private Form _form;
 
         [Browsable(true)]
         public string Title { get; set; }
@@ -44,7 +50,16 @@ namespace OlahCitra.CustomControl
         public Bitmap Image
         {
             get => new Bitmap(pictureBox1.Image);
-            set => pictureBox1.Image = value;
+            set 
+            {
+                pictureBox1.Image = value;
+
+                if(_form != null && _form.IsDisposed == false)
+                {
+                     var controls = _form.Controls.Find("pictureBox", true);
+                    (controls[0] as PictureBox).Image = value;
+                }
+            }
         }
     }
 }
