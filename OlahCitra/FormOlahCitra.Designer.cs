@@ -670,11 +670,11 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "JPEG files|*.jpeg|PNG files|*.png|All files|*.*";
+            this.openFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|PNG files|*.png|All files|*.*";
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "JPEG files|*.jpeg|All files|*.*";
+            this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
             // FormOlahCitra
             // 

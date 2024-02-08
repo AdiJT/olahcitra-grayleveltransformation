@@ -38,6 +38,7 @@
             this.chartHistogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartNormalizedHistogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelHistogram = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,8 +76,10 @@
             this.chartHistogram.Location = new System.Drawing.Point(0, 0);
             this.chartHistogram.Name = "chartHistogram";
             series1.ChartArea = "ChartArea1";
+            series1.LabelToolTip = "Gray Level #VALX{N0}, Frekuensi : #VAL{N0}\\n";
             series1.Legend = "Legend1";
             series1.Name = "Histogram";
+            series1.ToolTip = "X : #VALX{N0}, Y : #VAL{N0}";
             this.chartHistogram.Series.Add(series1);
             this.chartHistogram.Size = new System.Drawing.Size(293, 431);
             this.chartHistogram.TabIndex = 0;
@@ -97,8 +100,10 @@
             this.chartNormalizedHistogram.Name = "chartNormalizedHistogram";
             series2.ChartArea = "ChartArea1";
             series2.Color = System.Drawing.Color.Lime;
+            series2.LabelToolTip = "X: #VALX{N0}, Y: #VAL{N3}";
             series2.Legend = "Legend1";
             series2.Name = "Normalized Histogram";
+            series2.ToolTip = "X: #VALX{N0}, Y: #VAL{N3}";
             this.chartNormalizedHistogram.Series.Add(series2);
             this.chartNormalizedHistogram.Size = new System.Drawing.Size(296, 431);
             this.chartNormalizedHistogram.TabIndex = 0;
@@ -139,5 +144,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartHistogram;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartNormalizedHistogram;
         private System.Windows.Forms.Label labelHistogram;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
