@@ -31,7 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelBitSplit = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDownBItPlane = new System.Windows.Forms.NumericUpDown();
@@ -67,15 +69,13 @@
             this.radioButtonNegatif = new System.Windows.Forms.RadioButton();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
-            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
-            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,6 +128,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Foto Asli";
             // 
+            // pictureBoxAsli
+            // 
+            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
+            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxAsli.Name = "pictureBoxAsli";
+            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
+            this.pictureBoxAsli.TabIndex = 0;
+            this.pictureBoxAsli.Title = "Foto Asli";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBoxHasil);
@@ -138,6 +148,16 @@
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hasil Transformasi";
+            // 
+            // pictureBoxHasil
+            // 
+            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
+            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxHasil.Name = "pictureBoxHasil";
+            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
+            this.pictureBoxHasil.TabIndex = 0;
+            this.pictureBoxHasil.Title = "Hasil Transformasi";
             // 
             // groupBox4
             // 
@@ -589,6 +609,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gray Scale";
             // 
+            // pictureBoxGrayScale
+            // 
+            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
+            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
+            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
+            this.pictureBoxGrayScale.TabIndex = 0;
+            this.pictureBoxGrayScale.Title = "Grey Scale";
+            // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
@@ -640,36 +670,6 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
-            // 
-            // pictureBoxAsli
-            // 
-            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
-            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxAsli.Name = "pictureBoxAsli";
-            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
-            this.pictureBoxAsli.TabIndex = 0;
-            this.pictureBoxAsli.Title = "Foto Asli";
-            // 
-            // pictureBoxGrayScale
-            // 
-            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
-            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
-            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
-            this.pictureBoxGrayScale.TabIndex = 0;
-            this.pictureBoxGrayScale.Title = "Grey Scale";
-            // 
-            // pictureBoxHasil
-            // 
-            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
-            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxHasil.Name = "pictureBoxHasil";
-            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
-            this.pictureBoxHasil.TabIndex = 0;
-            this.pictureBoxHasil.Title = "Hasil Transformasi";
             // 
             // FormOlahCitra
             // 

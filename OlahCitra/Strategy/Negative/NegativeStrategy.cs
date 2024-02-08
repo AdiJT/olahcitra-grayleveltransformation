@@ -16,10 +16,10 @@ namespace OlahCitra.Strategy
 
         public override Bitmap Transform()
         {
-            if (_olahCitraForm.GreyScaleImage == null)
+            if (_olahCitraForm.GrayScaleImage == null)
                 throw new Exception("Greyscale belum ada!");
 
-            var bitmap = _olahCitraForm.GreyScaleImage;
+            var bitmap = _olahCitraForm.GrayScaleImage;
             return ImageProcessing.GrayLevelTransformation(bitmap, GreyLevelTransform.Negative);
         }
     }

@@ -16,7 +16,7 @@ namespace OlahCitra.Strategy
 
         public override Bitmap Transform()
         {
-            var grayScale = _olahCitraForm.GreyScaleImage;
+            var grayScale = _olahCitraForm.GrayScaleImage;
             if (grayScale == null)
                 throw new Exception("Gambar GreyScale belum dipilih");
 

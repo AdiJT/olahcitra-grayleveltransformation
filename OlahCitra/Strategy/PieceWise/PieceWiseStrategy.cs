@@ -16,10 +16,10 @@ namespace OlahCitra.Strategy
 
         public override Bitmap Transform()
         {
-            if (_olahCitraForm.GreyScaleImage == null)
+            if (_olahCitraForm.GrayScaleImage == null)
                 throw new Exception("No Image");
 
-            var greyscale = _olahCitraForm.GreyScaleImage;
+            var greyscale = _olahCitraForm.GrayScaleImage;
 
             (int r1, int s1) = _olahCitraForm.PieceWisePoint1;
             (int r2, int s2) = _olahCitraForm.PieceWisePoint2;

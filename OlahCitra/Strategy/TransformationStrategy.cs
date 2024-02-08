@@ -9,9 +9,9 @@ namespace OlahCitra.Strategy
 {
     public abstract class TransformationStrategy
     {
-        protected readonly FormOlahCitra _olahCitraForm;
+        protected readonly ITransformationStrategyContext _olahCitraForm;
 
-        public TransformationStrategy(FormOlahCitra olahCitraForm)
+        public TransformationStrategy(ITransformationStrategyContext olahCitraForm)
         {
             _olahCitraForm = olahCitraForm;
         }

@@ -1,4 +1,5 @@
 ﻿using OlahCitra.Core;
+using OlahCitra.Strategy.Power;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,13 +15,18 @@ namespace OlahCitra.Strategy
         {
         }
 
+        private FormOptions _formOptions = new FormOptions();
+
         public override Bitmap Transform()
         {
-            if (_olahCitraForm.GreyScaleImage == null)
+            if (_olahCitraForm.GrayScaleImage == null)
                 throw new Exception("Gambar tidak ada");
 
-            var greyscale = _olahCitraForm.GreyScaleImage;
-            var gamma = _olahCitraForm.Gamma;
+            var greyscale = _olahCitraForm.GrayScaleImage;
+            double gamma = 0;
+
+            _formOptions.FormClosing += (o, e) => gamma = _formOptions.Gamma;
+            _formOptions.ShowDialog();
 
             return ImageProcessing.GrayLevelTransformation(greyscale, TransformationFactory.Power(gamma));
         }

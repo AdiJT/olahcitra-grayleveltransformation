@@ -7,11 +7,12 @@ using System.Windows.Forms;
 
 namespace OlahCitra
 {
-    public partial class FormOlahCitra : Form
+    public partial class FormOlahCitra : Form, ITransformationStrategyContext
     {
         private TransformationStrategy _currentStrategy;
 
-        public Bitmap GreyScaleImage { get => pictureBoxGrayScale.Image; }
+        public Bitmap RGBImage { get => pictureBoxAsli.Image; }
+        public Bitmap GrayScaleImage { get => pictureBoxGrayScale.Image; }
 
         public double Gamma { get => double.Parse(textBoxGamma.Text); }
 
