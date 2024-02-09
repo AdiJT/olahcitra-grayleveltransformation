@@ -26,12 +26,12 @@ namespace OlahCitra
             histogramHasil.Image = hasil;
         }
 
-        public void UpdateStatistics(Bitmap greyScale, Bitmap hasil, bool onlyHasilChanged = false)
+        public async void UpdateStatistics(Bitmap greyScale, Bitmap hasil, bool onlyHasilChanged = false)
         {
             if (onlyHasilChanged == false)
-                imageStatisticsGreyScale.Statistics = ImageProcessing.MakeStatistic(greyScale);
+                imageStatisticsGreyScale.Statistics = await Task.Run(() => ImageProcessing.MakeStatistic(greyScale));
 
-            imageStatisticsHasil.Statistics = ImageProcessing.MakeStatistic(hasil);
+            imageStatisticsHasil.Statistics = await Task.Run(() => ImageProcessing.MakeStatistic(hasil));
         }
     }
 }

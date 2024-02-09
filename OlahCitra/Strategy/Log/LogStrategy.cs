@@ -14,13 +14,13 @@ namespace OlahCitra.Strategy
         {
         }
 
-        public override Bitmap Transform()
+        public override Task<Bitmap> Transform()
         {
-            if (_olahCitraForm.GrayScaleImage == null)
+            if (_context.GrayScaleImage == null)
                 throw new Exception("Greyscale belum ada!");
 
-            var bitmap = _olahCitraForm.GrayScaleImage;
-            return ImageProcessing.GrayLevelTransformation(bitmap, TransformationFactory.Log(bitmap));
+            var bitmap = _context.GrayScaleImage;
+            return Task.FromResult(ImageProcessing.GrayLevelTransformation(bitmap, TransformationFactory.Log(bitmap)));
         }
     }
 }

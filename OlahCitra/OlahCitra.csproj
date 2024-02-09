@@ -65,6 +65,24 @@
     <Compile Include="FormStatistics.Designer.cs">
       <DependentUpon>FormStatistics.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\BitPlaneSlicing\FormHasil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\BitPlaneSlicing\FormHasil.Designer.cs">
+      <DependentUpon>FormHasil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strategy\BitPlaneSlicing\FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\BitPlaneSlicing\FormOptions.Designer.cs">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strategy\GrayLevelSplit\FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\GrayLevelSplit\FormOptions.Designer.cs">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Strategy\ITransformationStrategyContext.cs" />
     <Compile Include="Strategy\BitPlaneSlicing\BitPlaneSlicingStrategy.cs" />
     <Compile Include="Strategy\GrayLevelSplit\GrayLevelSplitStrategy.cs" />
@@ -77,6 +95,12 @@
     <Compile Include="FormOlahCitra.Designer.cs">
       <DependentUpon>FormOlahCitra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\PieceWise\FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\PieceWise\FormOptions.Designer.cs">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Strategy\PieceWise\PieceWiseStrategy.cs" />
     <Compile Include="Strategy\Power\FormOptions.cs">
       <SubType>Form</SubType>
@@ -87,6 +111,13 @@
     <Compile Include="Strategy\Power\PowerStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategy\RGBSplit\FormHasil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\RGBSplit\FormHasil.Designer.cs">
+      <DependentUpon>FormHasil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strategy\RGBSplit\RBGSplitStrategy.cs" />
     <Compile Include="Strategy\TransformationStrategy.cs" />
     <EmbeddedResource Include="FormHistogram.resx">
       <DependentUpon>FormHistogram.cs</DependentUpon>
@@ -109,8 +140,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Strategy\BitPlaneSlicing\FormHasil.resx">
+      <DependentUpon>FormHasil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\BitPlaneSlicing\FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\GrayLevelSplit\FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\PieceWise\FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Strategy\Power\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\RGBSplit\FormHasil.resx">
+      <DependentUpon>FormHasil.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

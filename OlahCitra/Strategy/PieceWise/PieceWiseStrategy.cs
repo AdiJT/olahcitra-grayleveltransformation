@@ -1,4 +1,5 @@
 ﻿using OlahCitra.Core;
+using OlahCitra.Strategy.PieceWise;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,17 +15,29 @@ namespace OlahCitra.Strategy
         {
         }
 
-        public override Bitmap Transform()
+        private FormOptions _formOptions = new FormOptions();
+
+        public override Task<Bitmap> Transform()
         {
-            if (_olahCitraForm.GrayScaleImage == null)
+            if (_context.GrayScaleImage == null)
                 throw new Exception("No Image");
 
-            var greyscale = _olahCitraForm.GrayScaleImage;
+            var greyscale = _context.GrayScaleImage;
 
-            (int r1, int s1) = _olahCitraForm.PieceWisePoint1;
-            (int r2, int s2) = _olahCitraForm.PieceWisePoint2;
+            (int r1, int s1) = (0, 0);
+            (int r2, int s2) = (0, 0);
 
-            return ImageProcessing.GrayLevelTransformation(greyscale, TransformationFactory.PieceWiseLinear(r1, s1, r2, s2));
+            _formOptions.FormClosing += (o, e) =>
+            {
+                (r1, s1) = _formOptions.PieceWisePoint1;
+                (r2, s2) = _formOptions.PieceWisePoint2;
+            };
+
+            _formOptions.ShowDialog();
+
+            return 
+                Task.FromResult(ImageProcessing.GrayLevelTransformation(greyscale, 
+                    TransformationFactory.PieceWiseLinear(r1, s1, r2, s2)));
         }
     }
 }

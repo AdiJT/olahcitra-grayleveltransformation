@@ -17,18 +17,18 @@ namespace OlahCitra.Strategy
 
         private FormOptions _formOptions = new FormOptions();
 
-        public override Bitmap Transform()
+        public override Task<Bitmap> Transform()
         {
-            if (_olahCitraForm.GrayScaleImage == null)
+            if (_context.GrayScaleImage == null)
                 throw new Exception("Gambar tidak ada");
 
-            var greyscale = _olahCitraForm.GrayScaleImage;
+            var greyscale = _context.GrayScaleImage;
             double gamma = 0;
 
             _formOptions.FormClosing += (o, e) => gamma = _formOptions.Gamma;
             _formOptions.ShowDialog();
 
-            return ImageProcessing.GrayLevelTransformation(greyscale, TransformationFactory.Power(gamma));
+            return Task.FromResult(ImageProcessing.GrayLevelTransformation(greyscale, TransformationFactory.Power(gamma)));
         }
     }
 }

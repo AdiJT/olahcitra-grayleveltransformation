@@ -52,7 +52,7 @@ namespace OlahCitra.Core
 
         public static Func<int, int> HistogramEqualization(Bitmap bitmap)
         {
-            var histogram = ImageProcessing.MakeHistogram(bitmap);
+            var histogram = ImageProcessing.MakeGrayScaleHistogram(bitmap);
 
             double jumlahPixel = histogram.Sum();
 

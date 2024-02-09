@@ -36,7 +36,6 @@
             // labelGamma
             // 
             this.labelGamma.AutoSize = true;
-            this.labelGamma.Enabled = false;
             this.labelGamma.Location = new System.Drawing.Point(12, 9);
             this.labelGamma.Name = "labelGamma";
             this.labelGamma.Size = new System.Drawing.Size(43, 13);
@@ -46,7 +45,6 @@
             // textBoxGamma
             // 
             this.textBoxGamma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxGamma.Enabled = false;
             this.textBoxGamma.Location = new System.Drawing.Point(61, 6);
             this.textBoxGamma.Name = "textBoxGamma";
             this.textBoxGamma.Size = new System.Drawing.Size(100, 20);

@@ -1,5 +1,6 @@
 ﻿using OlahCitra.Core;
 using OlahCitra.Strategy;
+using OlahCitra.Strategy.RGBSplit;
 using System;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -13,19 +14,6 @@ namespace OlahCitra
 
         public Bitmap RGBImage { get => pictureBoxAsli.Image; }
         public Bitmap GrayScaleImage { get => pictureBoxGrayScale.Image; }
-
-        public double Gamma { get => double.Parse(textBoxGamma.Text); }
-
-        public (int, int) PieceWisePoint1 { get => ((int)numericUpDownR1.Value, (int)numericUpDownS1.Value); }
-        public (int, int) PieceWisePoint2 { get => ((int)numericUpDownR2.Value, (int)numericUpDownS2.Value); }
-
-        public (int, int) GrayLevelSplitRange { get => ((int)numericUpDownGraySplitR1.Value, (int)numericUpDownGraySplitR2.Value); }
-        public int GraySplitMaxGray { get => (int)numericUpDownGraySplitMax.Value; }
-        public int GraySplitMinGray { get => (int)numericUpDownGraySplitMin.Value; }
-        public bool GraySplitMantainBackground { get => checkBoxMaintan.Checked; }
-
-        public int BitSplitBitPlane { get => (int)numericUpDownBItPlane.Value; }
-        public bool BitSplitMaxGrayLevel { get => checkBoxBitSplitMaxGrayLevel.Checked; }
 
         private FormHistogramDanStatistics _formHistogramDanStatistics;
 
@@ -97,7 +85,7 @@ namespace OlahCitra
                 progressBar1.Visible = true;
                 tableLayoutPanel1.Enabled = false;
 
-                await Task.Run(() => hasil = _currentStrategy.Transform());
+                hasil = await _currentStrategy.Transform();
 
                 progressBar1.Enabled = false;
                 progressBar1.Visible = false;
@@ -119,9 +107,6 @@ namespace OlahCitra
         {
             if(radioButtonPower.Checked == true)
                 _currentStrategy = new PowerStrategy(this);
-
-            labelGamma.Enabled = radioButtonPower.Checked;
-            textBoxGamma.Enabled = radioButtonPower.Checked;
         }
 
         private void radioButtonHistogramEq_CheckedChanged(object sender, EventArgs e)
@@ -140,21 +125,12 @@ namespace OlahCitra
         {
             if(radioButtonPieceWise.Checked == true)
                 _currentStrategy = new PieceWiseStrategy(this);
-
-            tableLayoutPanelPieceWise.Enabled = radioButtonPieceWise.Checked;
         }
 
         private void radioButtonGraySplit_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButtonGraySplit.Checked == true)
                 _currentStrategy = new GrayLevelSplitStrategy(this);
-
-             tableLayoutPanelGraySplit.Enabled = radioButtonGraySplit.Checked;
-        }
-
-        private void checkBoxMaintan_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownGraySplitMin.Enabled = !checkBoxMaintan.Checked;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -170,8 +146,12 @@ namespace OlahCitra
         {
             if(radioButtonBitSplit.Checked == true)
                 _currentStrategy = new BitPlaneSlicingStrategy(this);
+        }
 
-            tableLayoutPanelBitSplit.Enabled = radioButtonBitSplit.Checked;
+        private void radioButtonRBGSplit_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonRBGSplit.Checked == true)
+                _currentStrategy = new RBGSplitStrategy(this);
         }
     }
 }

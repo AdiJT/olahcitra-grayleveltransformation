@@ -17,21 +17,43 @@ namespace OlahCitra.CustomControl
         {
             set
             {
-                chartHistogram.Series["Histogram"].Points.Clear();
-                chartNormalizedHistogram.Series["Normalized Histogram"].Points.Clear();
+                _histogram = Task.Run(() => ImageProcessing.MakeGrayScaleHistogram(value)).Result;
+                UpdateUI();
+            }
+        }
 
-                var histogram = ImageProcessing.MakeHistogram(value);
-                double jumlahPixel = histogram.Sum();
-                var normalizedHistogram = histogram.Select(i => i / jumlahPixel).ToArray();
+        [Browsable(true)]
+        public int[] HistogramArray 
+        { 
+            get => _histogram; 
+            set 
+            {
+                if(value.Length != 256)
+                    throw new ArgumentException("Histogram length must be 256", nameof(value));
 
-                chartHistogram.ChartAreas[0].Axes[1].Maximum = histogram.Max();
-                chartHistogram.ChartAreas[0].Axes[1].Minimum = 0;
+                _histogram = value;
+                UpdateUI();
+            } 
+        }
 
-                for (int i = 0; i < histogram.Length; i++)
-                {
-                    chartHistogram.Series["Histogram"].Points.AddXY(i, histogram[i]);
-                    chartNormalizedHistogram.Series["Normalized Histogram"].Points.AddXY(i, normalizedHistogram[i]);
-                }
+        private int[] _histogram = new int[256];
+
+        private void UpdateUI()
+        {
+            double jumlahPixel = _histogram.Sum();
+            var normalizedHistogram = _histogram.Select(i => i / jumlahPixel).ToArray();
+            var maxHistogram = _histogram.Max();
+
+            chartHistogram.Series["Histogram"].Points.Clear();
+            chartNormalizedHistogram.Series["Normalized Histogram"].Points.Clear();
+
+            chartHistogram.ChartAreas[0].Axes[1].Maximum = maxHistogram == 0 ? maxHistogram + 1 : maxHistogram;
+            chartHistogram.ChartAreas[0].Axes[1].Minimum = 0;
+
+            for (int i = 0; i < _histogram.Length; i++)
+            {
+                chartHistogram.Series["Histogram"].Points.AddXY(i, _histogram[i]);
+                chartNormalizedHistogram.Series["Normalized Histogram"].Points.AddXY(i, normalizedHistogram[i]);
             }
         }
 

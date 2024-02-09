@@ -14,14 +14,19 @@ namespace OlahCitra.Strategy
         {
         }
 
-        public override Bitmap Transform()
+        public override Task<Bitmap> Transform()
         {
-            if (_olahCitraForm.GrayScaleImage == null)
+            if (_context.GrayScaleImage == null)
                 throw new Exception("Gambar tidak ada");
 
-            var greyscale = _olahCitraForm.GrayScaleImage;
+            var greyscale = _context.GrayScaleImage;
 
-            return ImageProcessing.GrayLevelTransformation(greyscale, TransformationFactory.HistogramEqualization(greyscale));
+            return Task.FromResult(
+                ImageProcessing.GrayLevelTransformation(
+                    greyscale, 
+                    TransformationFactory.HistogramEqualization(greyscale)
+                    )
+                );
         }
     }
 }

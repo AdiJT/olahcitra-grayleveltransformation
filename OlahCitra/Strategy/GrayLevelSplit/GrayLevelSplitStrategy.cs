@@ -1,4 +1,5 @@
 ﻿using OlahCitra.Core;
+using OlahCitra.Strategy.GrayLevelSplit;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,20 +15,35 @@ namespace OlahCitra.Strategy
         {
         }
 
-        public override Bitmap Transform()
+        private FormOptions _formOptions = new FormOptions();
+
+        public override Task<Bitmap> Transform()
         {
-            var grayScale = _olahCitraForm.GrayScaleImage;
+            var grayScale = _context.GrayScaleImage;
 
             if (grayScale == null)
                 throw new Exception("Gambar tidak ada");
 
-            var range = _olahCitraForm.GrayLevelSplitRange;
-            var max = _olahCitraForm.GraySplitMaxGray;
-            var min = _olahCitraForm.GraySplitMinGray;
-            var maintain = _olahCitraForm.GraySplitMantainBackground;
+            (int, int) range = (0, 0);
+            int max = 0;
+            int min = 0;
+            bool maintain = false;
 
-            return ImageProcessing.GrayLevelTransformation(grayScale,
-                TransformationFactory.GraySplitting(range, max, min, maintain));
+            _formOptions.FormClosing += (o, e) =>
+            {
+                range = _formOptions.GrayLevelSplitRange;
+                max = _formOptions.GraySplitMaxGray;
+                min = _formOptions.GraySplitMinGray;
+                maintain = _formOptions.GraySplitMantainBackground;
+            };
+            _formOptions.ShowDialog();
+
+            return Task.FromResult(
+                ImageProcessing.GrayLevelTransformation(
+                    grayScale,
+                    TransformationFactory.GraySplitting(range, max, min, maintain)
+                    )
+                );
         }
     }
 }

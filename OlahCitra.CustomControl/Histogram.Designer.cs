@@ -68,6 +68,7 @@
             // 
             chartArea1.AxisX.Maximum = 255D;
             chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisY.ScaleBreakStyle.Spacing = 1D;
             chartArea1.Name = "ChartArea1";
             this.chartHistogram.ChartAreas.Add(chartArea1);
             this.chartHistogram.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -76,6 +77,7 @@
             this.chartHistogram.Location = new System.Drawing.Point(0, 0);
             this.chartHistogram.Name = "chartHistogram";
             series1.ChartArea = "ChartArea1";
+            series1.CustomProperties = "PixelPointWidth=5";
             series1.LabelToolTip = "Gray Level #VALX{N0}, Frekuensi : #VAL{N0}\\n";
             series1.Legend = "Legend1";
             series1.Name = "Histogram";

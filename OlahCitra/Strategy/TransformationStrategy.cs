@@ -9,13 +9,13 @@ namespace OlahCitra.Strategy
 {
     public abstract class TransformationStrategy
     {
-        protected readonly ITransformationStrategyContext _olahCitraForm;
+        protected readonly ITransformationStrategyContext _context;
 
-        public TransformationStrategy(ITransformationStrategyContext olahCitraForm)
+        public TransformationStrategy(ITransformationStrategyContext context)
         {
-            _olahCitraForm = olahCitraForm;
+            _context = context;
         }
 
-        public abstract Bitmap Transform();
+        public abstract Task<Bitmap> Transform();
     }
 }

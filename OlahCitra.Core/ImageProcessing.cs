@@ -90,7 +90,7 @@ namespace OlahCitra.Core
             };
         }
 
-        public static int[] MakeHistogram(Bitmap img)
+        public static int[] MakeGrayScaleHistogram(Bitmap img)
         {
             int[] histogram = new int[256];
 
@@ -98,10 +98,30 @@ namespace OlahCitra.Core
                 for(int j = 0; j < img.Height; j++)
                 {
                     var pixel = img.GetPixel(i, j);
-                    histogram[pixel.R]++;
+                    histogram[(pixel.R + pixel.G + pixel.B)/3]++;
                 }
 
             return histogram;
+        }
+
+        public static (int[] histogramR, int[] histogramG, int[] histogramB) MakeRGBHistogram(Bitmap img)
+        {
+            var histogramR = new int[256];
+            var histogramG = new int[256];
+            var histogramB = new int[256];
+
+            for (int i = 0; i < img.Width; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    var pixel = img.GetPixel(i, j);
+                    histogramR[pixel.R]++;
+                    histogramG[pixel.G]++;
+                    histogramB[pixel.B]++;
+                }
+            }
+
+            return (histogramR, histogramG, histogramB);
         }
     }
 }
