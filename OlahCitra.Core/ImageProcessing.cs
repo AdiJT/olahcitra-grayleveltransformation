@@ -104,6 +104,26 @@ namespace OlahCitra.Core
             return histogram;
         }
 
+        public static (Bitmap red, Bitmap green, Bitmap blue) SplitToRGB(Bitmap img)
+        {
+            var redImage = new Bitmap(img.Width, img.Height);
+            var greenImage = new Bitmap(img.Width, img.Height);
+            var blueImage = new Bitmap(img.Width, img.Height);
+
+            for (int i = 0; i < img.Width; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    var originalPixel = img.GetPixel(i, j);
+                    redImage.SetPixel(i, j, Color.FromArgb(originalPixel.A, originalPixel.R, 0, 0));
+                    greenImage.SetPixel(i, j, Color.FromArgb(originalPixel.A, 0, originalPixel.G, 0));
+                    blueImage.SetPixel(i, j, Color.FromArgb(originalPixel.A, 0, 0, originalPixel.B));
+                }
+            }
+
+            return (redImage, greenImage, blueImage);
+        }
+
         public static (int[] histogramR, int[] histogramG, int[] histogramB) MakeRGBHistogram(Bitmap img)
         {
             var histogramR = new int[256];

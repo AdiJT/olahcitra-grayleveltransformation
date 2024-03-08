@@ -20,20 +20,7 @@ namespace OlahCitra.Strategy.RGBSplit
         {
             var original = _context.RGBImage;
 
-            var redImage = new Bitmap(original.Width, original.Height);
-            var greenImage = new Bitmap(original.Width, original.Height);
-            var blueImage = new Bitmap(original.Width, original.Height);
-
-            for(int i = 0; i < original.Width; i++) 
-            {
-                for(int j = 0; j < original.Height; j++)
-                {
-                    var originalPixel = original.GetPixel(i, j);
-                    redImage.SetPixel(i, j, Color.FromArgb(originalPixel.A, originalPixel.R, 0, 0));
-                    greenImage.SetPixel(i, j, Color.FromArgb(originalPixel.A, 0, originalPixel.G, 0));
-                    blueImage.SetPixel(i, j, Color.FromArgb(originalPixel.A, 0, 0, originalPixel.B));
-                }
-            }
+            (var redImage, var greenImage, var blueImage) = ImageProcessing.SplitToRGB(original);
 
             (var histogramR, var histogramG, var histogramB) = ImageProcessing.MakeRGBHistogram(original);
 
