@@ -1,5 +1,7 @@
 ﻿using OlahCitra.Core;
 using OlahCitra.Strategy;
+using OlahCitra.Strategy.EuclidDist;
+using OlahCitra.Strategy.OtsuThresholding;
 using OlahCitra.Strategy.RGBSplit;
 using System;
 using System.Drawing;
@@ -69,12 +71,6 @@ namespace OlahCitra
             }
         }
 
-        private void radioButtonNegatif_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonNegatif.Checked == true)
-                _currentStrategy = new NegativeStrategy(this);
-        }
-
         private async void buttonTransform_Click(object sender, EventArgs e)
         {
             if(_currentStrategy != null)
@@ -95,6 +91,12 @@ namespace OlahCitra
 
                 UpdateHistogramDanStatistics(true);
             }
+        }
+
+        private void radioButtonNegatif_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonNegatif.Checked == true)
+                _currentStrategy = new NegativeStrategy(this);
         }
 
         private void radioButtonLog_CheckedChanged(object sender, EventArgs e)
@@ -133,15 +135,6 @@ namespace OlahCitra
                 _currentStrategy = new GrayLevelSplitStrategy(this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                Bitmap hasil = new Bitmap(pictureBoxHasil.Image);
-                hasil.Save(saveFileDialog1.FileName);
-            }
-        }
-
         private void radioButtonBitSplit_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButtonBitSplit.Checked == true)
@@ -152,6 +145,27 @@ namespace OlahCitra
         {
             if(radioButtonRBGSplit.Checked == true)
                 _currentStrategy = new RBGSplitStrategy(this);
+        }
+
+        private void radioButtonOtsu_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonOtsu.Checked == true)
+                _currentStrategy = new OtsuThresholdingStrategy(this);
+        }
+
+        private void radioButtonEuclidDist_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonEuclidDist.Checked == true)
+                _currentStrategy = new EuclidDistStrategy(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap hasil = new Bitmap(pictureBoxHasil.Image);
+                hasil.Save(saveFileDialog1.FileName);
+            }
         }
     }
 }

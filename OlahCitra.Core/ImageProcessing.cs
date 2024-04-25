@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Emgu.CV;
 
 namespace OlahCitra.Core
 {
@@ -37,6 +38,23 @@ namespace OlahCitra.Core
                     newGrayScale = Math.Max(newGrayScale, 0);
 
                     newBitmap.SetPixel(i, j, Color.FromArgb(pixel.A, newGrayScale, newGrayScale, newGrayScale));
+                }
+            }
+
+            return newBitmap;
+        }
+
+        public static Bitmap RGBTransformation(Bitmap original, Func<Color, Color> transform)
+        {
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            for(int i = 0; i < original.Width; i++)
+            {
+                for(int j = 0; j < original.Height; j++)
+                {
+                    var pixel = original.GetPixel(i, j);
+                    var newPixel = transform(pixel);
+                    newBitmap.SetPixel(i, j, newPixel);
                 }
             }
 
@@ -142,6 +160,49 @@ namespace OlahCitra.Core
             }
 
             return (histogramR, histogramG, histogramB);
+        }
+
+        public static int OtsuThresholding(Bitmap bitmap)
+        {
+            var histogram = MakeGrayScaleHistogram(bitmap);
+
+            var total = histogram.Sum();
+
+            var sum = 0f;
+            for (int i = 0; i < histogram.Length; i++) sum += i * histogram[i];
+
+            var sumB = 0f;
+            var wB = 0;
+            var wF = 0;
+
+            var varMax = 0f;
+            var threshold = 0;
+
+            for(int i = 0; i < histogram.Length; i++)
+            {
+                wB += histogram[i];
+
+                if (wB == 0) continue;
+
+                wF = total - wB;
+
+                if (wF == 0) break;
+
+                sumB += i * histogram[i];
+
+                var mB = sumB / wB;
+                var mF = (sum - sumB) / wF;
+
+                float varBetween = (float)wB * (float)wF * (mB - mF) * (mB - mF);
+
+                if(varBetween > varMax)
+                {
+                    varMax = varBetween;
+                    threshold = i;
+                }
+            }
+
+            return threshold;
         }
     }
 }

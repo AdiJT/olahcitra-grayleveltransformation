@@ -45,6 +45,18 @@ namespace OlahCitra.Core
             };
         }
 
+        public static Func<int, int> Thresholding(int threshold)
+        {
+            if(threshold < 0 || threshold > 255) throw new ArgumentOutOfRangeException(nameof(threshold));
+
+            return PieceWiseLinear(threshold, 0, threshold, 255);
+        }
+
+        public static Func<int, int> OtsuThresholding(Bitmap bitmap)
+        {
+            return Thresholding(ImageProcessing.OtsuThresholding(bitmap));
+        }
+
         public static Func<int, int> ContrastStreching(Bitmap bitmap)
         {
             return PieceWiseLinear(ImageProcessing.MinGrayLevel(bitmap), 0, ImageProcessing.MaxGrayLevel(bitmap), 255);
@@ -122,6 +134,21 @@ namespace OlahCitra.Core
                     result = g & mask;
 
                 return result;
+            };
+        }
+
+        public static Func<Color, Color> EuclidDist(Color targetRGB, double maxDistamce)
+        {
+            return p =>
+            {
+                var diffRSquared = Math.Pow(targetRGB.R - p.R, 2);
+                var diffGSquared = Math.Pow(targetRGB.G - p.G, 2);
+                var diffBSquared = Math.Pow(targetRGB.B - p.B, 2);
+
+                var distance = Math.Sqrt(diffRSquared + diffGSquared + diffBSquared);
+
+                if (distance <= maxDistamce) return p;
+                else return Color.Black;
             };
         }
     }

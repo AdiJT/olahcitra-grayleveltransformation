@@ -20,7 +20,7 @@ namespace OlahCitra.Strategy
                 throw new Exception("Greyscale belum ada!");
 
             var bitmap = _context.GrayScaleImage;
-            return Task.FromResult(ImageProcessing.GrayLevelTransformation(bitmap, GreyLevelTransform.Negative));
+            return Task.FromResult(ImageProcessing.GrayLevelTransformation(bitmap, GrayLevelTransform.Negative));
         }
     }
 }

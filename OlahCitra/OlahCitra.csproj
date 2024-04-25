@@ -77,6 +77,13 @@
     <Compile Include="Strategy\BitPlaneSlicing\FormOptions.Designer.cs">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\EuclidDist\EuclidDistStrategy.cs" />
+    <Compile Include="Strategy\EuclidDist\FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\EuclidDist\FormOptions.Designer.cs">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Strategy\GrayLevelSplit\FormOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +102,7 @@
     <Compile Include="FormOlahCitra.Designer.cs">
       <DependentUpon>FormOlahCitra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\OtsuThresholding\OtsuThresholdingStrategy.cs" />
     <Compile Include="Strategy\PieceWise\FormOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +152,9 @@
       <DependentUpon>FormHasil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strategy\BitPlaneSlicing\FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\EuclidDist\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strategy\GrayLevelSplit\FormOptions.resx">

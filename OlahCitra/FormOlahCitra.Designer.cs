@@ -35,6 +35,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonOtsu = new System.Windows.Forms.RadioButton();
+            this.radioButtonRBGSplit = new System.Windows.Forms.RadioButton();
             this.radioButtonBitSplit = new System.Windows.Forms.RadioButton();
             this.radioButtonGraySplit = new System.Windows.Forms.RadioButton();
             this.radioButtonPieceWise = new System.Windows.Forms.RadioButton();
@@ -52,7 +54,7 @@
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonRBGSplit = new System.Windows.Forms.RadioButton();
+            this.radioButtonEuclidDist = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -127,6 +129,8 @@
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonEuclidDist);
+            this.groupBox4.Controls.Add(this.radioButtonOtsu);
             this.groupBox4.Controls.Add(this.radioButtonRBGSplit);
             this.groupBox4.Controls.Add(this.radioButtonBitSplit);
             this.groupBox4.Controls.Add(this.radioButtonGraySplit);
@@ -144,6 +148,30 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonOtsu
+            // 
+            this.radioButtonOtsu.AutoSize = true;
+            this.radioButtonOtsu.Location = new System.Drawing.Point(173, 111);
+            this.radioButtonOtsu.Name = "radioButtonOtsu";
+            this.radioButtonOtsu.Size = new System.Drawing.Size(111, 17);
+            this.radioButtonOtsu.TabIndex = 16;
+            this.radioButtonOtsu.TabStop = true;
+            this.radioButtonOtsu.Text = "Otsu Thresholding";
+            this.radioButtonOtsu.UseVisualStyleBackColor = true;
+            this.radioButtonOtsu.CheckedChanged += new System.EventHandler(this.radioButtonOtsu_CheckedChanged);
+            // 
+            // radioButtonRBGSplit
+            // 
+            this.radioButtonRBGSplit.AutoSize = true;
+            this.radioButtonRBGSplit.Location = new System.Drawing.Point(173, 88);
+            this.radioButtonRBGSplit.Name = "radioButtonRBGSplit";
+            this.radioButtonRBGSplit.Size = new System.Drawing.Size(202, 17);
+            this.radioButtonRBGSplit.TabIndex = 15;
+            this.radioButtonRBGSplit.TabStop = true;
+            this.radioButtonRBGSplit.Text = "Pisah menjadi komponen R, G, dan B";
+            this.radioButtonRBGSplit.UseVisualStyleBackColor = true;
+            this.radioButtonRBGSplit.CheckedChanged += new System.EventHandler(this.radioButtonRBGSplit_CheckedChanged);
             // 
             // radioButtonBitSplit
             // 
@@ -328,17 +356,17 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonRBGSplit
+            // radioButtonEuclidDist
             // 
-            this.radioButtonRBGSplit.AutoSize = true;
-            this.radioButtonRBGSplit.Location = new System.Drawing.Point(173, 88);
-            this.radioButtonRBGSplit.Name = "radioButtonRBGSplit";
-            this.radioButtonRBGSplit.Size = new System.Drawing.Size(202, 17);
-            this.radioButtonRBGSplit.TabIndex = 15;
-            this.radioButtonRBGSplit.TabStop = true;
-            this.radioButtonRBGSplit.Text = "Pisah menjadi komponen R, G, dan B";
-            this.radioButtonRBGSplit.UseVisualStyleBackColor = true;
-            this.radioButtonRBGSplit.CheckedChanged += new System.EventHandler(this.radioButtonRBGSplit_CheckedChanged);
+            this.radioButtonEuclidDist.AutoSize = true;
+            this.radioButtonEuclidDist.Location = new System.Drawing.Point(388, 20);
+            this.radioButtonEuclidDist.Name = "radioButtonEuclidDist";
+            this.radioButtonEuclidDist.Size = new System.Drawing.Size(199, 17);
+            this.radioButtonEuclidDist.TabIndex = 17;
+            this.radioButtonEuclidDist.TabStop = true;
+            this.radioButtonEuclidDist.Text = "Ecluid Distance Segmentation (RGB)";
+            this.radioButtonEuclidDist.UseVisualStyleBackColor = true;
+            this.radioButtonEuclidDist.CheckedChanged += new System.EventHandler(this.radioButtonEuclidDist_CheckedChanged);
             // 
             // FormOlahCitra
             // 
@@ -386,6 +414,8 @@
         private CustomControl.CustomPictureBox pictureBoxGrayScale;
         private CustomControl.CustomPictureBox pictureBoxHasil;
         private System.Windows.Forms.RadioButton radioButtonRBGSplit;
+        private System.Windows.Forms.RadioButton radioButtonOtsu;
+        private System.Windows.Forms.RadioButton radioButtonEuclidDist;
     }
 }
 
