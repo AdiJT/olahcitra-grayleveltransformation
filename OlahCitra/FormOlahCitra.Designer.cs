@@ -35,6 +35,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonKMeans = new System.Windows.Forms.RadioButton();
+            this.radioButtonEuclidDist = new System.Windows.Forms.RadioButton();
             this.radioButtonOtsu = new System.Windows.Forms.RadioButton();
             this.radioButtonRBGSplit = new System.Windows.Forms.RadioButton();
             this.radioButtonBitSplit = new System.Windows.Forms.RadioButton();
@@ -54,7 +56,7 @@
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonEuclidDist = new System.Windows.Forms.RadioButton();
+            this.radioButtonKMeansLab = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -129,6 +131,8 @@
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonKMeansLab);
+            this.groupBox4.Controls.Add(this.radioButtonKMeans);
             this.groupBox4.Controls.Add(this.radioButtonEuclidDist);
             this.groupBox4.Controls.Add(this.radioButtonOtsu);
             this.groupBox4.Controls.Add(this.radioButtonRBGSplit);
@@ -148,6 +152,30 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonKMeans
+            // 
+            this.radioButtonKMeans.AutoSize = true;
+            this.radioButtonKMeans.Location = new System.Drawing.Point(388, 43);
+            this.radioButtonKMeans.Name = "radioButtonKMeans";
+            this.radioButtonKMeans.Size = new System.Drawing.Size(67, 17);
+            this.radioButtonKMeans.TabIndex = 18;
+            this.radioButtonKMeans.TabStop = true;
+            this.radioButtonKMeans.Text = "K-Means";
+            this.radioButtonKMeans.UseVisualStyleBackColor = true;
+            this.radioButtonKMeans.CheckedChanged += new System.EventHandler(this.radioButtonKMeans_CheckedChanged);
+            // 
+            // radioButtonEuclidDist
+            // 
+            this.radioButtonEuclidDist.AutoSize = true;
+            this.radioButtonEuclidDist.Location = new System.Drawing.Point(388, 20);
+            this.radioButtonEuclidDist.Name = "radioButtonEuclidDist";
+            this.radioButtonEuclidDist.Size = new System.Drawing.Size(199, 17);
+            this.radioButtonEuclidDist.TabIndex = 17;
+            this.radioButtonEuclidDist.TabStop = true;
+            this.radioButtonEuclidDist.Text = "Ecluid Distance Segmentation (RGB)";
+            this.radioButtonEuclidDist.UseVisualStyleBackColor = true;
+            this.radioButtonEuclidDist.CheckedChanged += new System.EventHandler(this.radioButtonEuclidDist_CheckedChanged);
             // 
             // radioButtonOtsu
             // 
@@ -356,17 +384,17 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonEuclidDist
+            // radioButtonKMeansLab
             // 
-            this.radioButtonEuclidDist.AutoSize = true;
-            this.radioButtonEuclidDist.Location = new System.Drawing.Point(388, 20);
-            this.radioButtonEuclidDist.Name = "radioButtonEuclidDist";
-            this.radioButtonEuclidDist.Size = new System.Drawing.Size(199, 17);
-            this.radioButtonEuclidDist.TabIndex = 17;
-            this.radioButtonEuclidDist.TabStop = true;
-            this.radioButtonEuclidDist.Text = "Ecluid Distance Segmentation (RGB)";
-            this.radioButtonEuclidDist.UseVisualStyleBackColor = true;
-            this.radioButtonEuclidDist.CheckedChanged += new System.EventHandler(this.radioButtonEuclidDist_CheckedChanged);
+            this.radioButtonKMeansLab.AutoSize = true;
+            this.radioButtonKMeansLab.Location = new System.Drawing.Point(388, 65);
+            this.radioButtonKMeansLab.Name = "radioButtonKMeansLab";
+            this.radioButtonKMeansLab.Size = new System.Drawing.Size(103, 17);
+            this.radioButtonKMeansLab.TabIndex = 19;
+            this.radioButtonKMeansLab.TabStop = true;
+            this.radioButtonKMeansLab.Text = "K-Means CieLab";
+            this.radioButtonKMeansLab.UseVisualStyleBackColor = true;
+            this.radioButtonKMeansLab.CheckedChanged += new System.EventHandler(this.radioButtonKMeansLab_CheckedChanged);
             // 
             // FormOlahCitra
             // 
@@ -416,6 +444,8 @@
         private System.Windows.Forms.RadioButton radioButtonRBGSplit;
         private System.Windows.Forms.RadioButton radioButtonOtsu;
         private System.Windows.Forms.RadioButton radioButtonEuclidDist;
+        private System.Windows.Forms.RadioButton radioButtonKMeans;
+        private System.Windows.Forms.RadioButton radioButtonKMeansLab;
     }
 }
 

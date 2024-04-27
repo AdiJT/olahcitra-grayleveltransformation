@@ -94,6 +94,8 @@
     <Compile Include="Strategy\BitPlaneSlicing\BitPlaneSlicingStrategy.cs" />
     <Compile Include="Strategy\GrayLevelSplit\GrayLevelSplitStrategy.cs" />
     <Compile Include="Strategy\HistogramEq\HistogramEqStrategy.cs" />
+    <Compile Include="Strategy\KMeansLab\KMeansLabStrategy.cs" />
+    <Compile Include="Strategy\KMeans\KMeansStrategy.cs" />
     <Compile Include="Strategy\Log\LogStrategy.cs" />
     <Compile Include="Strategy\Negative\NegativeStrategy.cs" />
     <Compile Include="FormOlahCitra.cs">

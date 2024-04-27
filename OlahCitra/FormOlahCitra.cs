@@ -1,6 +1,8 @@
 ﻿using OlahCitra.Core;
 using OlahCitra.Strategy;
 using OlahCitra.Strategy.EuclidDist;
+using OlahCitra.Strategy.KMeans;
+using OlahCitra.Strategy.KMeansLab;
 using OlahCitra.Strategy.OtsuThresholding;
 using OlahCitra.Strategy.RGBSplit;
 using System;
@@ -157,6 +159,18 @@ namespace OlahCitra
         {
             if (radioButtonEuclidDist.Checked == true)
                 _currentStrategy = new EuclidDistStrategy(this);
+        }
+
+        private void radioButtonKMeans_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonKMeans.Checked == true)
+                _currentStrategy = new KMeansStrategy(this);
+        }
+
+        private void radioButtonKMeansLab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonKMeansLab.Checked == true)
+                _currentStrategy = new KMeansLabStrategy(this);
         }
 
         private void button1_Click(object sender, EventArgs e)
