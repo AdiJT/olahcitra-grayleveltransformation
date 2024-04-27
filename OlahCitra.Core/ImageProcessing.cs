@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using Emgu.CV.Util;
 
 namespace OlahCitra.Core
 {
@@ -207,122 +208,32 @@ namespace OlahCitra.Core
             return threshold;
         }
 
-        private static double ColorDist(Color color1, Color color2)
-        {
-            var diffR = Math.Pow(color1.R - color2.R, 2);
-            var diffG = Math.Pow(color1.G - color2.G, 2);
-            var diffB = Math.Pow(color1.B - color2.B, 2);
-
-            return Math.Sqrt(diffR + diffG + diffB);
-        }
-
         public static Bitmap KMeansSegmentation(
             Bitmap image,
             int k = 3)
         {
-            var clusters = new List<List<(int x, int y,Color c)>>();
-            var centroids = new List<Color>();
-            var centroidDist = double.MaxValue;
-            var minCentroidDist = 0.0001;
-            var random = new Random();
+            Matrix<float> data = new Matrix<float>(image.Width * image.Height, 3);
+            var labels = new VectorOfInt();
 
-            //Centroid awal
-            for(int i = 0; i < k; i++)
+            int matrixIndex = 0;
+            for (int x = 0; x < image.Width; x++)
             {
-                var randX = random.Next(0, image.Width);
-                var randY = random.Next(0, image.Height);
-                var centroid = image.GetPixel(randX, randY);
-                centroids.Add(centroid);
-                clusters.Add(new List<(int x, int y, Color c)>());
-            }
-
-            if (centroids.Count != k || clusters.Count != k)
-                throw new Exception("Inilisasi gagal");
-
-            //Kluster awal
-            for(int x = 0; x < image.Width; x++)
-                for(int y = 0; y < image.Height; y++)
+                for (int y = 0; y < image.Height; y++)
                 {
                     var pixel = image.GetPixel(x, y);
-                    var minDist = double.MaxValue;
-                    var clusterIndex = 0;
-
-                    for(int i = 0; i < k;i++)
-                    {
-                        var dist = ColorDist(centroids[i], pixel);
-                        if(dist < minDist)
-                        {
-                            minDist = dist;
-                            clusterIndex = i;
-                        }
-                    }
-
-                    clusters[clusterIndex].Add((x, y, pixel));
+                    data[matrixIndex, 0] = (float)pixel.R;
+                    data[matrixIndex, 1] = (float)pixel.G;
+                    data[matrixIndex, 2] = (float)pixel.B;
+                    matrixIndex++;
                 }
-
-            while (centroidDist >= minCentroidDist)
-            {
-                var sumCentroidDist = 0d;
-                //Pembaruan centroid
-                for (int i = 0; i < centroids.Count; i++)
-                {
-                    var cluster = clusters[i];
-                    var jumlahData = cluster.Count;
-
-                    if (jumlahData <= 0) continue;
-
-                    var sumR = 0d;
-                    var sumG = 0d;
-                    var sumB = 0d;
-
-                    foreach (var data in cluster)
-                    {
-                        sumR += data.c.R;
-                        sumG += data.c.G;
-                        sumB += data.c.B;
-                    }
-
-                    var newCentroid = Color.FromArgb(
-                        (int)Math.Round(sumR / jumlahData),
-                        (int)Math.Round(sumG / jumlahData),
-                        (int)Math.Round(sumB / jumlahData)
-                    );
-
-                    sumCentroidDist += ColorDist(centroids[i], newCentroid);
-                    centroids[i] = newCentroid;
-                }
-
-                //Klustering ulang
-                for (int i = 0; i < clusters.Count; i++)
-                    clusters[i] = new List<(int x, int y, Color c)>();
-
-                for (int x = 0; x < image.Width; x++)
-                    for (int y = 0; y < image.Height; y++)
-                    {
-                        var pixel = image.GetPixel(x, y);
-                        var minDist = double.MaxValue;
-                        var clusterIndex = 0;
-
-                        for (int i = 0; i < k; i++)
-                        {
-                            var dist = ColorDist(centroids[i], pixel);
-                            if (dist < minDist)
-                            {
-                                minDist = dist;
-                                clusterIndex = i;
-                            }
-                        }
-
-                        clusters[clusterIndex].Add((x, y, pixel));
-                    }
-
-                //Hitung rata2 perubahan centroid
-                centroidDist = sumCentroidDist / centroids.Count;
             }
 
+            CvInvoke.Kmeans(data, k, labels, new MCvTermCriteria(Math.Pow(10, -10)), 8, KMeansInitType.PPCenters);
+
             //Pelabelan
+            var random = new Random();
             var colorLabel = new List<Color>();
-            for(int i = 0; i < k; i++)
+            for (int i = 0; i < k; i++)
             {
                 var randR = random.Next(0, 256);
                 var randG = random.Next(0, 256);
@@ -331,24 +242,17 @@ namespace OlahCitra.Core
             }
 
             var outImage = new Bitmap(image.Width, image.Height);
-            for(int i = 0; i < clusters.Count; i++)
+            var labelsIndex = 0;
+            for (int x = 0; x < image.Width; x++)
             {
-                var cluster = clusters[i];
-                foreach(var pixel in cluster)
+                for (int y = 0; y < image.Height; y++)
                 {
-                    outImage.SetPixel(pixel.x, pixel.y, colorLabel[i]);
+                    outImage.SetPixel(x, y, colorLabel[labels[labelsIndex]]);
+                    labelsIndex++;
                 }
             }
 
             return outImage;
-        }
-
-        private static double ColorDist(Lab color1, Lab color2)
-        {
-            var diffA = Math.Pow(color1.Y - color2.Y, 2);
-            var diffB = Math.Pow(color1.Z - color2.Z, 2);
-
-            return Math.Sqrt(diffB + diffA);
         }
 
         public static Bitmap KMeansSegmentationCielab(
@@ -356,104 +260,27 @@ namespace OlahCitra.Core
             int k = 3)
         {
             Image<Bgr, Byte> imageBgr = image.ToImage<Bgr, Byte>();
-            Image<Lab, Byte> imageLab = new Image<Lab, byte>(image.Width, image.Height);
-            CvInvoke.CvtColor(imageBgr, imageLab, ColorConversion.Bgr2Lab);
+            Image<Lab, Byte> imageLab = imageBgr.Convert<Lab, Byte>();
 
-            var clusters = new List<List<(int x, int y, Lab c)>>();
-            var centroids = new List<Lab>();
-            var centroidDist = double.MaxValue;
-            var minCentroidDist = 0.001;
-            var random = new Random();
+            Matrix<float> data = new Matrix<float>(image.Width * image.Height, 2);
+            var labels = new VectorOfInt();
 
-            //Centroid awal
-            for (int i = 0; i < k; i++)
-            {
-                var randX = random.Next(0, imageLab.Width);
-                var randY = random.Next(0, imageLab.Height);
-                var centroid = imageLab[randY, randX];
-                centroids.Add(centroid);
-                clusters.Add(new List<(int x, int y, Lab c)>());
-            }
-
-            if (centroids.Count != k || clusters.Count != k)
-                throw new Exception("Inilisasi gagal");
-
-            //Kluster awal
+            int matrixIndex = 0;
             for (int x = 0; x < imageLab.Width; x++)
+            {
                 for (int y = 0; y < imageLab.Height; y++)
                 {
                     var pixel = imageLab[y, x];
-                    var minDist = double.MaxValue;
-                    var clusterIndex = 0;
-
-                    for (int i = 0; i < k; i++)
-                    {
-                        var dist = ColorDist(centroids[i], pixel);
-                        if (dist < minDist)
-                        {
-                            minDist = dist;
-                            clusterIndex = i;
-                        }
-                    }
-
-                    clusters[clusterIndex].Add((x, y, pixel));
+                    data[matrixIndex, 0] = (float)pixel.Y;
+                    data[matrixIndex, 1] = (float)pixel.Z;
+                    matrixIndex++;
                 }
-
-            while (centroidDist >= minCentroidDist)
-            {
-                var sumCentroidDist = 0d;
-                //Pembaruan centroid
-                for (int i = 0; i < centroids.Count; i++)
-                {
-                    var cluster = clusters[i];
-                    var jumlahData = cluster.Count;
-
-                    if (jumlahData <= 0) continue;
-
-                    var sumA = 0d;
-                    var sumB = 0d;
-
-                    foreach (var data in cluster)
-                    {
-                        sumA += data.c.Y;
-                        sumB += data.c.Z;
-                    }
-
-                    var newCentroid = new Lab() { Y = sumA / jumlahData, Z = sumB / jumlahData };
-
-                    sumCentroidDist += ColorDist(centroids[i], newCentroid);
-                    centroids[i] = newCentroid;
-                }
-
-                //Klustering ulang
-                for (int i = 0; i < clusters.Count; i++)
-                    clusters[i] = new List<(int x, int y, Lab c)>();
-
-                for (int x = 0; x < imageLab.Width; x++)
-                    for (int y = 0; y < imageLab.Height; y++)
-                    {
-                        var pixel = imageLab[y, x];
-                        var minDist = double.MaxValue;
-                        var clusterIndex = 0;
-
-                        for (int i = 0; i < k; i++)
-                        {
-                            var dist = ColorDist(centroids[i], pixel);
-                            if (dist < minDist)
-                            {
-                                minDist = dist;
-                                clusterIndex = i;
-                            }
-                        }
-
-                        clusters[clusterIndex].Add((x, y, pixel));
-                    }
-
-                //Hitung rata2 perubahan centroid
-                centroidDist = sumCentroidDist / centroids.Count;
             }
 
+            CvInvoke.Kmeans(data, k, labels, new MCvTermCriteria(Math.Pow(10, -10)), 8, KMeansInitType.PPCenters);
+
             //Pelabelan
+            var random = new Random();
             var colorLabel = new List<Color>();
             for (int i = 0; i < k; i++)
             {
@@ -464,16 +291,184 @@ namespace OlahCitra.Core
             }
 
             var outImage = new Bitmap(image.Width, image.Height);
-            for (int i = 0; i < clusters.Count; i++)
+            var labelsIndex = 0;
+            for (int x = 0; x < imageLab.Width; x++)
             {
-                var cluster = clusters[i];
-                foreach (var pixel in cluster)
+                for (int y = 0; y < imageLab.Height; y++)
                 {
-                    outImage.SetPixel(pixel.x, pixel.y, colorLabel[i]);
+                    outImage.SetPixel(x, y, colorLabel[labels[labelsIndex]]);
+                    labelsIndex++;
                 }
             }
 
             return outImage;
+        }
+
+        public static Bitmap Dilation(Bitmap input, int kernelSize)
+        {
+            Bitmap outImage = new Bitmap(input.Width, input.Height);
+
+            using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
+            {
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+
+                CvInvoke.MorphologyEx(image,
+                                      image,
+                                      MorphOp.Dilate,
+                                      kernel,
+                                      new Point(-1, -1),
+                                      1,
+                                      BorderType.Default,
+                                      new MCvScalar());
+
+                outImage = image.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap Erosion(Bitmap input, int kernelSize)
+        {
+            Bitmap outImage = new Bitmap(input.Width, input.Height);
+
+            using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
+            {
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+
+                CvInvoke.MorphologyEx(image,
+                                      image,
+                                      MorphOp.Erode,
+                                      kernel,
+                                      new Point(-1, -1),
+                                      1,
+                                      BorderType.Default,
+                                      new MCvScalar());
+
+                outImage = image.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap Opening(Bitmap input, int kernelSize)
+        {
+            Bitmap outImage = new Bitmap(input.Width, input.Height);
+
+            using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
+            {
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+
+                CvInvoke.MorphologyEx(image,
+                                      image,
+                                      MorphOp.Open,
+                                      kernel,
+                                      new Point(-1, -1),
+                                      1,
+                                      BorderType.Default,
+                                      new MCvScalar());
+
+                outImage = image.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap Closing(Bitmap input, int kernelSize)
+        {
+            Bitmap outImage = new Bitmap(input.Width, input.Height);
+
+            using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
+            {
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+
+                CvInvoke.MorphologyEx(image,
+                                      image,
+                                      MorphOp.Close,
+                                      kernel,
+                                      new Point(-1, -1),
+                                      1,
+                                      BorderType.Default,
+                                      new MCvScalar());
+
+                outImage = image.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap WatershedSegmentation(Bitmap input)
+        {
+            Image<Bgr, Byte> image = input.ToImage<Bgr, byte>();
+            using (UMat imageGray = new UMat())
+            using (UMat imageClear = new UMat())
+            using (UMat sureBg = new UMat())
+            using (UMat sureFg = new UMat())
+            using (UMat unknown = new UMat())
+            using (UMat markers = new UMat())
+            {
+                float[,] kernelMat = new float[3, 3]
+                {
+                    {1, 1, 1 },
+                    {1, -8, 1 },
+                    {1, 1, 1 }
+                };
+                ConvolutionKernelF kernelLap = new ConvolutionKernelF(kernelMat);
+
+                Mat imgLaplacian = new Mat(image.Size, DepthType.Cv32F, 3);
+                CvInvoke.Filter2D(image, imgLaplacian, kernelLap, new Point(-1, -1));
+
+                Mat sharp = new Mat();
+                image.Mat.ConvertTo(sharp, DepthType.Cv32F);
+                Mat imgResult = sharp - imgLaplacian;
+
+                imgLaplacian.ConvertTo(imgLaplacian, DepthType.Cv8U);
+                Image<Bgr, byte> imageSharp = imgResult.ToImage<Bgr, byte>();
+
+                //Konversi ke grayscale
+                CvInvoke.CvtColor(imageSharp, imageGray, ColorConversion.Bgr2Gray);
+                CvInvoke.Threshold(imageGray, imageClear, 0, 255, ThresholdType.Otsu);
+
+                //Kernel
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
+
+                //Removing noise
+                CvInvoke.MorphologyEx(imageClear, imageClear, MorphOp.Open, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+                CvInvoke.MorphologyEx(imageClear, imageClear, MorphOp.Close, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+
+                //Get sure background
+                CvInvoke.MorphologyEx(imageClear, sureBg, MorphOp.Dilate, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+
+                //Get sure foreground
+                CvInvoke.MorphologyEx(imageClear, sureFg, MorphOp.Erode, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+
+                //Get unknown
+                CvInvoke.Subtract(sureBg, sureFg, unknown);
+
+                //Get Markers
+                CvInvoke.ConnectedComponents(sureFg, markers, LineType.EightConnected, DepthType.Cv32S);
+
+                Matrix<int> markersMat = new Matrix<int>(markers.Rows, markers.Cols);
+                markers.CopyTo(markersMat);
+                markersMat += 1;
+                Mat m = new Mat();
+
+                Matrix<byte> unknownMat = new Matrix<byte>(unknown.Rows, unknown.Cols);
+                unknown.CopyTo(unknownMat);
+
+                for (int x = 0; x < unknownMat.Rows; x++)
+                    for (int y = 0; y < unknownMat.Cols; y++)
+                        if (unknownMat[x, y] == 255) markersMat[x, y] = 0;
+
+                CvInvoke.Watershed(image, markersMat);
+
+                for (int x = 0; x < markersMat.Rows; x++)
+                    for (int y = 0; y < markersMat.Cols; y++)
+                        if (markersMat[x, y] == -1) image[x, y] = new Bgr(0, 0, 255);
+
+                input = image.ToBitmap<Bgr, Byte>();
+            }
+
+            return input;
         }
     }
 }

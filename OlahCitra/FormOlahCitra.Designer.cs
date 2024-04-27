@@ -31,10 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonKMeansLab = new System.Windows.Forms.RadioButton();
             this.radioButtonKMeans = new System.Windows.Forms.RadioButton();
             this.radioButtonEuclidDist = new System.Windows.Forms.RadioButton();
             this.radioButtonOtsu = new System.Windows.Forms.RadioButton();
@@ -49,14 +48,20 @@
             this.radioButtonNegatif = new System.Windows.Forms.RadioButton();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonKMeansLab = new System.Windows.Forms.RadioButton();
+            this.radioButtonDilasi = new System.Windows.Forms.RadioButton();
+            this.radioButtonErosi = new System.Windows.Forms.RadioButton();
+            this.radioButtonOpening = new System.Windows.Forms.RadioButton();
+            this.radioButtonClosing = new System.Windows.Forms.RadioButton();
+            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
+            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
+            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
+            this.radioButtonWatershed = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -97,16 +102,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Foto Asli";
             // 
-            // pictureBoxAsli
-            // 
-            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
-            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxAsli.Name = "pictureBoxAsli";
-            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
-            this.pictureBoxAsli.TabIndex = 0;
-            this.pictureBoxAsli.Title = "Foto Asli";
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBoxHasil);
@@ -118,19 +113,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hasil Transformasi";
             // 
-            // pictureBoxHasil
-            // 
-            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
-            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxHasil.Name = "pictureBoxHasil";
-            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
-            this.pictureBoxHasil.TabIndex = 0;
-            this.pictureBoxHasil.Title = "Hasil Transformasi";
-            // 
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonWatershed);
+            this.groupBox4.Controls.Add(this.radioButtonClosing);
+            this.groupBox4.Controls.Add(this.radioButtonOpening);
+            this.groupBox4.Controls.Add(this.radioButtonErosi);
+            this.groupBox4.Controls.Add(this.radioButtonDilasi);
             this.groupBox4.Controls.Add(this.radioButtonKMeansLab);
             this.groupBox4.Controls.Add(this.radioButtonKMeans);
             this.groupBox4.Controls.Add(this.radioButtonEuclidDist);
@@ -152,6 +142,18 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonKMeansLab
+            // 
+            this.radioButtonKMeansLab.AutoSize = true;
+            this.radioButtonKMeansLab.Location = new System.Drawing.Point(388, 65);
+            this.radioButtonKMeansLab.Name = "radioButtonKMeansLab";
+            this.radioButtonKMeansLab.Size = new System.Drawing.Size(103, 17);
+            this.radioButtonKMeansLab.TabIndex = 19;
+            this.radioButtonKMeansLab.TabStop = true;
+            this.radioButtonKMeansLab.Text = "K-Means CieLab";
+            this.radioButtonKMeansLab.UseVisualStyleBackColor = true;
+            this.radioButtonKMeansLab.CheckedChanged += new System.EventHandler(this.radioButtonKMeansLab_CheckedChanged);
             // 
             // radioButtonKMeans
             // 
@@ -321,16 +323,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gray Scale";
             // 
-            // pictureBoxGrayScale
-            // 
-            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
-            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
-            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
-            this.pictureBoxGrayScale.TabIndex = 0;
-            this.pictureBoxGrayScale.Title = "Grey Scale";
-            // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
@@ -384,17 +376,95 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonKMeansLab
+            // radioButtonDilasi
             // 
-            this.radioButtonKMeansLab.AutoSize = true;
-            this.radioButtonKMeansLab.Location = new System.Drawing.Point(388, 65);
-            this.radioButtonKMeansLab.Name = "radioButtonKMeansLab";
-            this.radioButtonKMeansLab.Size = new System.Drawing.Size(103, 17);
-            this.radioButtonKMeansLab.TabIndex = 19;
-            this.radioButtonKMeansLab.TabStop = true;
-            this.radioButtonKMeansLab.Text = "K-Means CieLab";
-            this.radioButtonKMeansLab.UseVisualStyleBackColor = true;
-            this.radioButtonKMeansLab.CheckedChanged += new System.EventHandler(this.radioButtonKMeansLab_CheckedChanged);
+            this.radioButtonDilasi.AutoSize = true;
+            this.radioButtonDilasi.Location = new System.Drawing.Point(388, 88);
+            this.radioButtonDilasi.Name = "radioButtonDilasi";
+            this.radioButtonDilasi.Size = new System.Drawing.Size(50, 17);
+            this.radioButtonDilasi.TabIndex = 20;
+            this.radioButtonDilasi.TabStop = true;
+            this.radioButtonDilasi.Text = "Dilasi";
+            this.radioButtonDilasi.UseVisualStyleBackColor = true;
+            this.radioButtonDilasi.CheckedChanged += new System.EventHandler(this.radioButtonDilasi_CheckedChanged);
+            // 
+            // radioButtonErosi
+            // 
+            this.radioButtonErosi.AutoSize = true;
+            this.radioButtonErosi.Location = new System.Drawing.Point(388, 111);
+            this.radioButtonErosi.Name = "radioButtonErosi";
+            this.radioButtonErosi.Size = new System.Drawing.Size(48, 17);
+            this.radioButtonErosi.TabIndex = 21;
+            this.radioButtonErosi.TabStop = true;
+            this.radioButtonErosi.Text = "Erosi";
+            this.radioButtonErosi.UseVisualStyleBackColor = true;
+            this.radioButtonErosi.CheckedChanged += new System.EventHandler(this.radioButtonErosi_CheckedChanged);
+            // 
+            // radioButtonOpening
+            // 
+            this.radioButtonOpening.AutoSize = true;
+            this.radioButtonOpening.Location = new System.Drawing.Point(593, 20);
+            this.radioButtonOpening.Name = "radioButtonOpening";
+            this.radioButtonOpening.Size = new System.Drawing.Size(65, 17);
+            this.radioButtonOpening.TabIndex = 22;
+            this.radioButtonOpening.TabStop = true;
+            this.radioButtonOpening.Text = "Opening";
+            this.radioButtonOpening.UseVisualStyleBackColor = true;
+            this.radioButtonOpening.CheckedChanged += new System.EventHandler(this.radioButtonOpening_CheckedChanged);
+            // 
+            // radioButtonClosing
+            // 
+            this.radioButtonClosing.AutoSize = true;
+            this.radioButtonClosing.Location = new System.Drawing.Point(593, 42);
+            this.radioButtonClosing.Name = "radioButtonClosing";
+            this.radioButtonClosing.Size = new System.Drawing.Size(59, 17);
+            this.radioButtonClosing.TabIndex = 23;
+            this.radioButtonClosing.TabStop = true;
+            this.radioButtonClosing.Text = "Closing";
+            this.radioButtonClosing.UseVisualStyleBackColor = true;
+            this.radioButtonClosing.CheckedChanged += new System.EventHandler(this.radioButtonClosing_CheckedChanged);
+            // 
+            // pictureBoxAsli
+            // 
+            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
+            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxAsli.Name = "pictureBoxAsli";
+            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
+            this.pictureBoxAsli.TabIndex = 0;
+            this.pictureBoxAsli.Title = "Foto Asli";
+            // 
+            // pictureBoxHasil
+            // 
+            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
+            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxHasil.Name = "pictureBoxHasil";
+            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
+            this.pictureBoxHasil.TabIndex = 0;
+            this.pictureBoxHasil.Title = "Hasil Transformasi";
+            // 
+            // pictureBoxGrayScale
+            // 
+            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
+            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
+            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
+            this.pictureBoxGrayScale.TabIndex = 0;
+            this.pictureBoxGrayScale.Title = "Grey Scale";
+            // 
+            // radioButtonWatershed
+            // 
+            this.radioButtonWatershed.AutoSize = true;
+            this.radioButtonWatershed.Location = new System.Drawing.Point(593, 65);
+            this.radioButtonWatershed.Name = "radioButtonWatershed";
+            this.radioButtonWatershed.Size = new System.Drawing.Size(77, 17);
+            this.radioButtonWatershed.TabIndex = 24;
+            this.radioButtonWatershed.TabStop = true;
+            this.radioButtonWatershed.Text = "Watershed";
+            this.radioButtonWatershed.UseVisualStyleBackColor = true;
+            this.radioButtonWatershed.CheckedChanged += new System.EventHandler(this.radioButtonWatershed_CheckedChanged);
             // 
             // FormOlahCitra
             // 
@@ -446,6 +516,11 @@
         private System.Windows.Forms.RadioButton radioButtonEuclidDist;
         private System.Windows.Forms.RadioButton radioButtonKMeans;
         private System.Windows.Forms.RadioButton radioButtonKMeansLab;
+        private System.Windows.Forms.RadioButton radioButtonDilasi;
+        private System.Windows.Forms.RadioButton radioButtonErosi;
+        private System.Windows.Forms.RadioButton radioButtonOpening;
+        private System.Windows.Forms.RadioButton radioButtonClosing;
+        private System.Windows.Forms.RadioButton radioButtonWatershed;
     }
 }
 

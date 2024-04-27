@@ -1,10 +1,15 @@
 ﻿using OlahCitra.Core;
 using OlahCitra.Strategy;
+using OlahCitra.Strategy.Closing;
+using OlahCitra.Strategy.Dilasi;
+using OlahCitra.Strategy.Erosi;
 using OlahCitra.Strategy.EuclidDist;
 using OlahCitra.Strategy.KMeans;
 using OlahCitra.Strategy.KMeansLab;
+using OlahCitra.Strategy.Opening;
 using OlahCitra.Strategy.OtsuThresholding;
 using OlahCitra.Strategy.RGBSplit;
+using OlahCitra.Strategy.Watershed;
 using System;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -173,6 +178,18 @@ namespace OlahCitra
                 _currentStrategy = new KMeansLabStrategy(this);
         }
 
+        private void radioButtonDilasi_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonDilasi.Checked == true)
+                _currentStrategy = new DilasiStrategy(this);
+        }
+
+        private void radioButtonErosi_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonErosi.Checked == true)
+                _currentStrategy = new ErosiStrategy(this);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if(saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -180,6 +197,24 @@ namespace OlahCitra
                 Bitmap hasil = new Bitmap(pictureBoxHasil.Image);
                 hasil.Save(saveFileDialog1.FileName);
             }
+        }
+
+        private void radioButtonOpening_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonOpening.Checked == true)
+                _currentStrategy = new OpeningStrategy(this);
+        }
+
+        private void radioButtonClosing_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonClosing.Checked == true)
+                _currentStrategy = new ClosingStrategy(this);
+        }
+
+        private void radioButtonWatershed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonWatershed.Checked == true)
+                _currentStrategy = new WatershedStrategy(this);
         }
     }
 }

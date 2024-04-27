@@ -77,6 +77,9 @@
     <Compile Include="Strategy\BitPlaneSlicing\FormOptions.Designer.cs">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\Closing\ClosingStrategy.cs" />
+    <Compile Include="Strategy\Dilasi\DilasiStrategy.cs" />
+    <Compile Include="Strategy\Erosi\ErosiStrategy.cs" />
     <Compile Include="Strategy\EuclidDist\EuclidDistStrategy.cs" />
     <Compile Include="Strategy\EuclidDist\FormOptions.cs">
       <SubType>Form</SubType>
@@ -104,6 +107,7 @@
     <Compile Include="FormOlahCitra.Designer.cs">
       <DependentUpon>FormOlahCitra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\Opening\OpeningStrategy.cs" />
     <Compile Include="Strategy\OtsuThresholding\OtsuThresholdingStrategy.cs" />
     <Compile Include="Strategy\PieceWise\FormOptions.cs">
       <SubType>Form</SubType>
@@ -129,6 +133,7 @@
     </Compile>
     <Compile Include="Strategy\RGBSplit\RBGSplitStrategy.cs" />
     <Compile Include="Strategy\TransformationStrategy.cs" />
+    <Compile Include="Strategy\Watershed\WatershedStrategy.cs" />
     <EmbeddedResource Include="FormHistogram.resx">
       <DependentUpon>FormHistogram.cs</DependentUpon>
     </EmbeddedResource>
