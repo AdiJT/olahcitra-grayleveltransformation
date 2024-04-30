@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV;
@@ -208,6 +209,22 @@ namespace OlahCitra.Core
             return threshold;
         }
 
+        public static Bitmap OtsuCv(Bitmap original)
+        {
+            var outImage = new Bitmap(original.Width, original.Height);
+
+            using (var image = original.ToImage<Bgr, byte>())
+            using (var imageGray = image.Convert<Gray, byte>())
+            using (var result = new UMat())
+            {
+                CvInvoke.Threshold(imageGray, result, 0, 255, ThresholdType.Otsu | ThresholdType.Binary);
+
+                outImage = result.ToBitmap();
+            }
+            
+            return outImage;
+        }
+
         public static Bitmap KMeansSegmentation(
             Bitmap image,
             int k = 3)
@@ -262,7 +279,7 @@ namespace OlahCitra.Core
             Image<Bgr, Byte> imageBgr = image.ToImage<Bgr, Byte>();
             Image<Lab, Byte> imageLab = imageBgr.Convert<Lab, Byte>();
 
-            Matrix<float> data = new Matrix<float>(image.Width * image.Height, 2);
+            Matrix<float> data = new Matrix<float>(image.Width * image.Height, 3);
             var labels = new VectorOfInt();
 
             int matrixIndex = 0;
@@ -271,8 +288,9 @@ namespace OlahCitra.Core
                 for (int y = 0; y < imageLab.Height; y++)
                 {
                     var pixel = imageLab[y, x];
-                    data[matrixIndex, 0] = (float)pixel.Y;
-                    data[matrixIndex, 1] = (float)pixel.Z;
+                    data[matrixIndex, 0] = (float)pixel.X;
+                    data[matrixIndex, 1] = (float)pixel.Y;
+                    data[matrixIndex, 2] = (float)pixel.Z;
                     matrixIndex++;
                 }
             }
@@ -469,6 +487,112 @@ namespace OlahCitra.Core
             }
 
             return input;
+        }
+
+        public static Bitmap AdaptMeanThreshold(Bitmap input, double c)
+        {
+            var image = input.ToImage<Bgr, byte>();
+            UMat imageGray = new UMat();
+            CvInvoke.CvtColor(image, imageGray, ColorConversion.Bgr2Gray);
+            CvInvoke.AdaptiveThreshold(imageGray, imageGray, 255, AdaptiveThresholdType.MeanC, ThresholdType.Binary, 3, c);
+
+            var outImage = imageGray.ToBitmap();
+            image.Dispose();
+
+            return outImage;
+        }
+
+        public static Bitmap KMeansSegmentationHsv(
+            Bitmap image,
+            int k = 3)
+        {
+            Image<Bgr, Byte> imageBgr = image.ToImage<Bgr, Byte>();
+            Image<Hsv, Byte> imageHsv = new Image<Hsv, byte>(imageBgr.Width, imageBgr.Height);
+            CvInvoke.CvtColor(imageBgr, imageHsv, ColorConversion.Bgr2Hsv);
+
+            Matrix<float> data = new Matrix<float>(image.Width * image.Height, 3);
+            var labels = new VectorOfInt();
+
+            int matrixIndex = 0;
+            for (int x = 0; x < imageHsv.Width; x++)
+            {
+                for (int y = 0; y < imageHsv.Height; y++)
+                {
+                    var pixel = imageHsv[y, x];
+                    data[matrixIndex, 0] = (float)pixel.Hue;
+                    data[matrixIndex, 1] = (float)pixel.Satuation;
+                    data[matrixIndex, 2] = (float)pixel.Value;
+                    matrixIndex++;
+                }
+            }
+
+            CvInvoke.Kmeans(data, k, labels, new MCvTermCriteria(Math.Pow(10, -10)), 8, KMeansInitType.PPCenters);
+
+            //Pelabelan
+            var random = new Random();
+            var colorLabel = new List<Color>();
+            for (int i = 0; i < k; i++)
+            {
+                var randR = random.Next(0, 256);
+                var randG = random.Next(0, 256);
+                var randB = random.Next(0, 256);
+                colorLabel.Add(Color.FromArgb(randR, randG, randB));
+            }
+
+            var outImage = new Bitmap(image.Width, image.Height);
+            var labelsIndex = 0;
+            for (int x = 0; x < imageHsv.Width; x++)
+            {
+                for (int y = 0; y < imageHsv.Height; y++)
+                {
+                    outImage.SetPixel(x, y, colorLabel[labels[labelsIndex]]);
+                    labelsIndex++;
+                }
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap SharpeningLaplacian(Bitmap original)
+        {
+            Bitmap outImage = new Bitmap(original.Width, original.Height);
+            using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
+            using (UMat laplacian = new UMat(image.Size, DepthType.Cv32F, 3))
+            using (UMat img32F = new UMat())
+            using (UMat sharp = new UMat())
+            {
+                var kernel = new ConvolutionKernelF(new float[,]
+                {
+                    { -1, -1, -1 },
+                    { -1, 8, -1 },
+                    { -1, 1, -1 }
+                });
+
+                CvInvoke.Filter2D(image, laplacian, kernel, new Point(-1, -1));
+
+                image.Mat.ConvertTo(img32F, DepthType.Cv32F);
+
+                CvInvoke.AbsDiff(img32F, laplacian, sharp);
+
+                sharp.ConvertTo(sharp, DepthType.Cv8U);
+
+                outImage = sharp.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap GaussianBlur(Bitmap original)
+        {
+            Bitmap outImage = new Bitmap(original.Width, original.Height);
+            using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
+            using (UMat blurred = new UMat())
+            {
+                CvInvoke.GaussianBlur(image, blurred, new Size(5, 5), 0);
+                outImage = blurred.ToBitmap();
+            }
+
+            return outImage;
         }
     }
 }

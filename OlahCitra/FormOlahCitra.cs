@@ -1,10 +1,14 @@
 ﻿using OlahCitra.Core;
 using OlahCitra.Strategy;
+using OlahCitra.Strategy.AdaptMeanThreshold;
 using OlahCitra.Strategy.Closing;
+using OlahCitra.Strategy.ColorConstancy;
 using OlahCitra.Strategy.Dilasi;
 using OlahCitra.Strategy.Erosi;
 using OlahCitra.Strategy.EuclidDist;
+using OlahCitra.Strategy.SharpeningLaplacian;
 using OlahCitra.Strategy.KMeans;
+using OlahCitra.Strategy.KMeansHsv;
 using OlahCitra.Strategy.KMeansLab;
 using OlahCitra.Strategy.Opening;
 using OlahCitra.Strategy.OtsuThresholding;
@@ -14,6 +18,8 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OlahCitra.Strategy.OtsuCv;
+using OlahCitra.Strategy.GaussianBlur;
 
 namespace OlahCitra
 {
@@ -215,6 +221,42 @@ namespace OlahCitra
         {
             if (radioButtonWatershed.Checked == true)
                 _currentStrategy = new WatershedStrategy(this);
+        }
+
+        private void radioButtonAdaptMeanThreshold_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonAdaptMeanThreshold.Checked == true)
+                _currentStrategy = new AdaptMeanThresholdStrategy(this);
+        }
+
+        private void radioButtonKMeansHsv_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonKMeansHsv.Checked == true)
+                _currentStrategy = new KMeansHsvStrategy(this);
+        }
+
+        private void radioButtonColorConstancy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonColorConstancy.Checked == true)
+                _currentStrategy = new ColorConstancyStrategy(this);
+        }
+
+        private void radioButtonSharpeningLaplacian_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonSharpeningLaplacian.Checked == true)
+                _currentStrategy = new SharpeningLaplacianStrategy(this);
+        }
+
+        private void radioButtonOtsuCv_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonOtsuCv.Checked == true)
+                _currentStrategy = new OtsuCvStrategy(this);
+        }
+
+        private void radioButtonGaussianBlur_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonGaussianBlur.Checked == true)
+                _currentStrategy = new GaussianBlurStrategy(this);
         }
     }
 }

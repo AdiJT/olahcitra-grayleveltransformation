@@ -151,5 +151,43 @@ namespace OlahCitra.Core
                 else return Color.Black;
             };
         }
+
+        public static Func<Color, Color> ColorConstancy(Bitmap image)
+        {
+            double sumR = 0;
+            double sumG = 0;
+            double sumB = 0;
+            var jumPixel = image.Width * image.Height;
+
+            for(int i = 0; i < image.Width; i++)
+            {
+                for(int j = 0; j < image.Height; j++)
+                {
+                    var pixel = image.GetPixel(i, j);
+                    sumR += pixel.R;
+                    sumG += pixel.G;
+                    sumB += pixel.B;
+                }
+            }
+
+            double avgR = sumR / jumPixel;
+            double avgG = sumG / jumPixel;
+            double avgB = sumB / jumPixel;
+
+            double mean = (avgR + avgG + avgB) / (double)3;
+
+            double indeksR = avgR / mean;
+            double indeksG = avgG / mean;
+            double indeksB = avgB / mean;
+
+            return p =>
+            {
+                int r = (int)Math.Max(Math.Min(p.R * indeksR, 255), 0);
+                int g = (int)Math.Max(Math.Min(p.G * indeksG, 255), 0);
+                int b = (int)Math.Max(Math.Min(p.B * indeksB, 255), 0);
+
+                return Color.FromArgb(r, g, b);
+            };
+        }
     }
 }

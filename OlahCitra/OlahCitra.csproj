@@ -65,6 +65,7 @@
     <Compile Include="FormStatistics.Designer.cs">
       <DependentUpon>FormStatistics.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\AdaptMeanThreshold\AdaptMeanThresholdStrategy.cs" />
     <Compile Include="Strategy\BitPlaneSlicing\FormHasil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +79,7 @@
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Strategy\Closing\ClosingStrategy.cs" />
+    <Compile Include="Strategy\ColorConstancy\ColorConstancyStrategy.cs" />
     <Compile Include="Strategy\Dilasi\DilasiStrategy.cs" />
     <Compile Include="Strategy\Erosi\ErosiStrategy.cs" />
     <Compile Include="Strategy\EuclidDist\EuclidDistStrategy.cs" />
@@ -87,16 +89,20 @@
     <Compile Include="Strategy\EuclidDist\FormOptions.Designer.cs">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\GaussianBlur\GaussianBlurStrategy.cs" />
     <Compile Include="Strategy\GrayLevelSplit\FormOptions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Strategy\GrayLevelSplit\FormOptions.Designer.cs">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\OtsuCv\OtsuCvStrategy.cs" />
+    <Compile Include="Strategy\SharpeningLaplacian\SharpeningLaplacianStrategy.cs" />
     <Compile Include="Strategy\ITransformationStrategyContext.cs" />
     <Compile Include="Strategy\BitPlaneSlicing\BitPlaneSlicingStrategy.cs" />
     <Compile Include="Strategy\GrayLevelSplit\GrayLevelSplitStrategy.cs" />
     <Compile Include="Strategy\HistogramEq\HistogramEqStrategy.cs" />
+    <Compile Include="Strategy\KMeansHsv\KMeansHsvStrategy.cs" />
     <Compile Include="Strategy\KMeansLab\KMeansLabStrategy.cs" />
     <Compile Include="Strategy\KMeans\KMeansStrategy.cs" />
     <Compile Include="Strategy\Log\LogStrategy.cs" />
