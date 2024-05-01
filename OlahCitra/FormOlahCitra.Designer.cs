@@ -35,6 +35,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonPreProcessing = new System.Windows.Forms.RadioButton();
+            this.radioButtonSobel = new System.Windows.Forms.RadioButton();
             this.radioButtonGreenSegmentation = new System.Windows.Forms.RadioButton();
             this.radioButtonGaussianBlur = new System.Windows.Forms.RadioButton();
             this.radioButtonOtsuCv = new System.Windows.Forms.RadioButton();
@@ -69,8 +71,7 @@
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonSobel = new System.Windows.Forms.RadioButton();
-            this.radioButtonPreProcessing = new System.Windows.Forms.RadioButton();
+            this.radioButtonCanny = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -145,6 +146,7 @@
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonCanny);
             this.groupBox4.Controls.Add(this.radioButtonPreProcessing);
             this.groupBox4.Controls.Add(this.radioButtonSobel);
             this.groupBox4.Controls.Add(this.radioButtonGreenSegmentation);
@@ -180,6 +182,30 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonPreProcessing
+            // 
+            this.radioButtonPreProcessing.AutoSize = true;
+            this.radioButtonPreProcessing.Location = new System.Drawing.Point(173, 134);
+            this.radioButtonPreProcessing.Name = "radioButtonPreProcessing";
+            this.radioButtonPreProcessing.Size = new System.Drawing.Size(96, 17);
+            this.radioButtonPreProcessing.TabIndex = 33;
+            this.radioButtonPreProcessing.TabStop = true;
+            this.radioButtonPreProcessing.Text = "Pre-Processing";
+            this.radioButtonPreProcessing.UseVisualStyleBackColor = true;
+            this.radioButtonPreProcessing.CheckedChanged += new System.EventHandler(this.radioButtonPreProcessing_CheckedChanged);
+            // 
+            // radioButtonSobel
+            // 
+            this.radioButtonSobel.AutoSize = true;
+            this.radioButtonSobel.Location = new System.Drawing.Point(9, 134);
+            this.radioButtonSobel.Name = "radioButtonSobel";
+            this.radioButtonSobel.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonSobel.TabIndex = 32;
+            this.radioButtonSobel.TabStop = true;
+            this.radioButtonSobel.Text = "Sobel";
+            this.radioButtonSobel.UseVisualStyleBackColor = true;
+            this.radioButtonSobel.CheckedChanged += new System.EventHandler(this.radioButtonSobel_CheckedChanged);
             // 
             // radioButtonGreenSegmentation
             // 
@@ -568,29 +594,17 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonSobel
+            // radioButtonCanny
             // 
-            this.radioButtonSobel.AutoSize = true;
-            this.radioButtonSobel.Location = new System.Drawing.Point(9, 134);
-            this.radioButtonSobel.Name = "radioButtonSobel";
-            this.radioButtonSobel.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonSobel.TabIndex = 32;
-            this.radioButtonSobel.TabStop = true;
-            this.radioButtonSobel.Text = "Sobel";
-            this.radioButtonSobel.UseVisualStyleBackColor = true;
-            this.radioButtonSobel.CheckedChanged += new System.EventHandler(this.radioButtonSobel_CheckedChanged);
-            // 
-            // radioButtonPreProcessing
-            // 
-            this.radioButtonPreProcessing.AutoSize = true;
-            this.radioButtonPreProcessing.Location = new System.Drawing.Point(173, 134);
-            this.radioButtonPreProcessing.Name = "radioButtonPreProcessing";
-            this.radioButtonPreProcessing.Size = new System.Drawing.Size(96, 17);
-            this.radioButtonPreProcessing.TabIndex = 33;
-            this.radioButtonPreProcessing.TabStop = true;
-            this.radioButtonPreProcessing.Text = "Pre-Processing";
-            this.radioButtonPreProcessing.UseVisualStyleBackColor = true;
-            this.radioButtonPreProcessing.CheckedChanged += new System.EventHandler(this.radioButtonPreProcessing_CheckedChanged);
+            this.radioButtonCanny.AutoSize = true;
+            this.radioButtonCanny.Location = new System.Drawing.Point(388, 134);
+            this.radioButtonCanny.Name = "radioButtonCanny";
+            this.radioButtonCanny.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonCanny.TabIndex = 34;
+            this.radioButtonCanny.TabStop = true;
+            this.radioButtonCanny.Text = "Canny";
+            this.radioButtonCanny.UseVisualStyleBackColor = true;
+            this.radioButtonCanny.CheckedChanged += new System.EventHandler(this.radioButtonCanny_CheckedChanged);
             // 
             // FormOlahCitra
             // 
@@ -656,6 +670,7 @@
         private System.Windows.Forms.RadioButton radioButtonGreenSegmentation;
         private System.Windows.Forms.RadioButton radioButtonSobel;
         private System.Windows.Forms.RadioButton radioButtonPreProcessing;
+        private System.Windows.Forms.RadioButton radioButtonCanny;
     }
 }
 

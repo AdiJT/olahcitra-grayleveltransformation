@@ -23,6 +23,7 @@ using OlahCitra.Strategy.GaussianBlur;
 using OlahCitra.Strategy.GreenSegmentation;
 using OlahCitra.Strategy.Sobel;
 using OlahCitra.Strategy.PreProcessing;
+using OlahCitra.Strategy.Canny;
 
 namespace OlahCitra
 {
@@ -278,6 +279,12 @@ namespace OlahCitra
         {
             if (radioButtonPreProcessing.Checked == true)
                 _currentStrategy = new PreProcessingStrategy(this);
+        }
+
+        private void radioButtonCanny_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonCanny.Checked == true)
+                _currentStrategy = new CannyStrategy(this);
         }
     }
 }

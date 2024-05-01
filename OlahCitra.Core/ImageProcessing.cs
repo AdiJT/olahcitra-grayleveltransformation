@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Ocl;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using static System.Net.Mime.MediaTypeNames;
@@ -329,7 +330,7 @@ namespace OlahCitra.Core
 
             using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
             {
-                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(kernelSize, kernelSize), new Point(1, 1));
 
                 CvInvoke.MorphologyEx(image,
                                       image,
@@ -585,22 +586,28 @@ namespace OlahCitra.Core
         public static Bitmap GreenSegmentation(Bitmap original)
         {
             Bitmap outImage = new Bitmap(original.Width, original.Height);
+
             using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
             using (UMat imageHsv = new UMat())
             using (UMat mask = new UMat())
             using (UMat result = new UMat())
             {
-                CvInvoke.GaussianBlur(image, image, new Size(5, 5), 0);
+                //CvInvoke.GaussianBlur(image, image, new Size(5, 5), 0);
                 CvInvoke.CvtColor(image, imageHsv, ColorConversion.Bgr2Hsv);
 
                 CvInvoke.InRange(imageHsv,
-                                 new ScalarArray(new MCvScalar(40, 25, 0)),
-                                 new ScalarArray(new MCvScalar(110, 255, 190)),
+                                 new ScalarArray(new MCvScalar(36, 30, 30)),
+                                 new ScalarArray(new MCvScalar(102, 255, 255)),
                                  mask);
+
+
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Ellipse, new Size(3, 3), new Point(-1, -1));
+                CvInvoke.MorphologyEx(mask, mask, MorphOp.Dilate, kernel, new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
+                //CvInvoke.BitwiseNot(mask, mask);
 
                 CvInvoke.BitwiseAnd(image, image, result, mask);
 
-                outImage = result.ToBitmap();
+                outImage = mask.ToBitmap();
             }
 
             return outImage;
@@ -611,19 +618,34 @@ namespace OlahCitra.Core
             Bitmap outImage = new Bitmap(original.Width, original.Height);
 
             using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
-            using (var imageGrey = image.Convert<Gray, byte>())
-            using (UMat x = new UMat())
-            using (UMat y = new UMat())
+            using (var imageGray = image.Convert<Gray, byte>())
+            using (UMat blur = new UMat())
             using (UMat sobel = new UMat())
             using (UMat result = new UMat())
             {
-                CvInvoke.Sobel(imageGrey, x, DepthType.Cv16S, 1, 0);
-                CvInvoke.Sobel(imageGrey, y, DepthType.Cv16S, 0, 1);
-                CvInvoke.Add(x, y, sobel);
+                CvInvoke.GaussianBlur(imageGray, blur, new Size(3, 3), 0);
+                CvInvoke.Sobel(blur, sobel, DepthType.Cv64F, 1, 1);
                 CvInvoke.ConvertScaleAbs(sobel, result, 1, 0);
-                CvInvoke.Threshold(result, result, 0, 255, ThresholdType.Otsu | ThresholdType.BinaryInv);
+                CvInvoke.Threshold(result, result, 0, 255, ThresholdType.Otsu);
 
                 outImage = result.ToBitmap();
+            }
+
+            return outImage;
+        }
+        
+        public static Bitmap Canny(Bitmap original)
+        {
+            Bitmap outImage = new Bitmap(original.Width, original.Height);
+
+            using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
+            using (UMat blur = new UMat())
+            using (UMat canny = new UMat())
+            {
+                CvInvoke.GaussianBlur(image, blur, new Size(3, 3), 0);
+                CvInvoke.Canny(blur, canny, 70, 140);
+
+                outImage = canny.ToBitmap();
             }
 
             return outImage;
@@ -645,18 +667,27 @@ namespace OlahCitra.Core
             var greenMask = GreenSegmentation(original);
             dictionary.Add("Green Mask", greenMask);
 
-            var edgeMask = Sobel(original);
+            var edgeMask = Canny(original);
             dictionary.Add("Edge Mask", edgeMask);
 
             using (var image = outImage.ToImage<Gray, byte>())
-            using(var green = greenMask.ToImage<Gray, byte>())
-            using(var edge = edgeMask.ToImage<Gray, byte>())
+            using (var green = greenMask.ToImage<Gray, byte>())
+            using (var edge = edgeMask.ToImage<Gray, byte>())
             {
+                CvInvoke.BitwiseNot(green, green);
+
                 CvInvoke.BitwiseAnd(image, green, image);
                 dictionary.Add("Closing AND Green Mask", image.ToBitmap());
 
+                CvInvoke.Dilate(edge, edge, null, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+                CvInvoke.BitwiseNot(edge, edge, green);
+
                 CvInvoke.BitwiseAnd(image, edge, image);
                 dictionary.Add("Closing AND Edge Mask", image.ToBitmap());
+
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Cross, new Size(3, 3), new Point(-1, -1));
+                CvInvoke.MorphologyEx(image, image, MorphOp.Close, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
+                dictionary.Add("Closing2", image.ToBitmap());
 
                 outImage = image.ToBitmap();
             }

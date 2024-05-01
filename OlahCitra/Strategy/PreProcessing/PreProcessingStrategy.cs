@@ -22,7 +22,8 @@ namespace OlahCitra.Strategy.PreProcessing
 
             int cols = result.Count / 4 + 1;
 
-            var outImage = new Bitmap(4 * rgbImage.Width, cols * rgbImage.Height);
+            int shift = 50;
+            var outImage = new Bitmap(4 * (rgbImage.Width + shift), cols * (rgbImage.Height + shift));
 
             using (var g = Graphics.FromImage(outImage))
             {
@@ -30,7 +31,7 @@ namespace OlahCitra.Strategy.PreProcessing
                 var col = 0;
                 foreach (var item in result)
                 {
-                    g.DrawImage(item.Value, new Point(row * rgbImage.Width, col * rgbImage.Height));
+                    g.DrawImage(item.Value, new Point(row * (rgbImage.Width + shift), col * (rgbImage.Height + shift)));
                     if (row == 3)
                     {
                         row = 0;
