@@ -31,8 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonGreenSegmentation = new System.Windows.Forms.RadioButton();
+            this.radioButtonGaussianBlur = new System.Windows.Forms.RadioButton();
+            this.radioButtonOtsuCv = new System.Windows.Forms.RadioButton();
             this.radioButtonSharpeningLaplacian = new System.Windows.Forms.RadioButton();
             this.radioButtonColorConstancy = new System.Windows.Forms.RadioButton();
             this.radioButtonKMeansHsv = new System.Windows.Forms.RadioButton();
@@ -57,17 +62,15 @@
             this.radioButtonNegatif = new System.Windows.Forms.RadioButton();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonOtsuCv = new System.Windows.Forms.RadioButton();
-            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
-            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
-            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
-            this.radioButtonGaussianBlur = new System.Windows.Forms.RadioButton();
+            this.radioButtonSobel = new System.Windows.Forms.RadioButton();
+            this.radioButtonPreProcessing = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -79,7 +82,7 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33332F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 1);
@@ -91,37 +94,60 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.060606F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.60606F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1020, 544);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.779661F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.93221F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.28813F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1020, 689);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pictureBoxAsli);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 35);
+            this.groupBox1.Location = new System.Drawing.Point(3, 49);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(333, 323);
+            this.groupBox1.Size = new System.Drawing.Size(333, 379);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Foto Asli";
+            // 
+            // pictureBoxAsli
+            // 
+            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
+            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxAsli.Name = "pictureBoxAsli";
+            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 360);
+            this.pictureBoxAsli.TabIndex = 0;
+            this.pictureBoxAsli.Title = "Foto Asli";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBoxHasil);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(682, 35);
+            this.groupBox3.Location = new System.Drawing.Point(682, 49);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(335, 323);
+            this.groupBox3.Size = new System.Drawing.Size(335, 379);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hasil Transformasi";
             // 
+            // pictureBoxHasil
+            // 
+            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
+            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxHasil.Name = "pictureBoxHasil";
+            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 360);
+            this.pictureBoxHasil.TabIndex = 0;
+            this.pictureBoxHasil.Title = "Hasil Transformasi";
+            // 
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonPreProcessing);
+            this.groupBox4.Controls.Add(this.radioButtonSobel);
+            this.groupBox4.Controls.Add(this.radioButtonGreenSegmentation);
             this.groupBox4.Controls.Add(this.radioButtonGaussianBlur);
             this.groupBox4.Controls.Add(this.radioButtonOtsuCv);
             this.groupBox4.Controls.Add(this.radioButtonSharpeningLaplacian);
@@ -148,12 +174,48 @@
             this.groupBox4.Controls.Add(this.radioButtonNegatif);
             this.groupBox4.Controls.Add(this.progressBar1);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(3, 364);
+            this.groupBox4.Location = new System.Drawing.Point(3, 434);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1014, 177);
+            this.groupBox4.Size = new System.Drawing.Size(1014, 252);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonGreenSegmentation
+            // 
+            this.radioButtonGreenSegmentation.AutoSize = true;
+            this.radioButtonGreenSegmentation.Location = new System.Drawing.Point(748, 111);
+            this.radioButtonGreenSegmentation.Name = "radioButtonGreenSegmentation";
+            this.radioButtonGreenSegmentation.Size = new System.Drawing.Size(122, 17);
+            this.radioButtonGreenSegmentation.TabIndex = 31;
+            this.radioButtonGreenSegmentation.TabStop = true;
+            this.radioButtonGreenSegmentation.Text = "Green Segmentation";
+            this.radioButtonGreenSegmentation.UseVisualStyleBackColor = true;
+            this.radioButtonGreenSegmentation.CheckedChanged += new System.EventHandler(this.radioButtonGreenSegmentation_CheckedChanged);
+            // 
+            // radioButtonGaussianBlur
+            // 
+            this.radioButtonGaussianBlur.AutoSize = true;
+            this.radioButtonGaussianBlur.Location = new System.Drawing.Point(748, 88);
+            this.radioButtonGaussianBlur.Name = "radioButtonGaussianBlur";
+            this.radioButtonGaussianBlur.Size = new System.Drawing.Size(90, 17);
+            this.radioButtonGaussianBlur.TabIndex = 30;
+            this.radioButtonGaussianBlur.TabStop = true;
+            this.radioButtonGaussianBlur.Text = "Gaussian Blur";
+            this.radioButtonGaussianBlur.UseVisualStyleBackColor = true;
+            this.radioButtonGaussianBlur.CheckedChanged += new System.EventHandler(this.radioButtonGaussianBlur_CheckedChanged);
+            // 
+            // radioButtonOtsuCv
+            // 
+            this.radioButtonOtsuCv.AutoSize = true;
+            this.radioButtonOtsuCv.Location = new System.Drawing.Point(748, 65);
+            this.radioButtonOtsuCv.Name = "radioButtonOtsuCv";
+            this.radioButtonOtsuCv.Size = new System.Drawing.Size(163, 17);
+            this.radioButtonOtsuCv.TabIndex = 29;
+            this.radioButtonOtsuCv.TabStop = true;
+            this.radioButtonOtsuCv.Text = "Ostu Thresholding (Open CV)";
+            this.radioButtonOtsuCv.UseVisualStyleBackColor = true;
+            this.radioButtonOtsuCv.CheckedChanged += new System.EventHandler(this.radioButtonOtsuCv_CheckedChanged);
             // 
             // radioButtonSharpeningLaplacian
             // 
@@ -423,7 +485,7 @@
             // 
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBar1.Enabled = false;
-            this.progressBar1.Location = new System.Drawing.Point(3, 148);
+            this.progressBar1.Location = new System.Drawing.Point(3, 223);
             this.progressBar1.MarqueeAnimationSpeed = 10;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(1008, 26);
@@ -436,12 +498,22 @@
             // 
             this.groupBox2.Controls.Add(this.pictureBoxGrayScale);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(342, 35);
+            this.groupBox2.Location = new System.Drawing.Point(342, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(334, 323);
+            this.groupBox2.Size = new System.Drawing.Size(334, 379);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gray Scale";
+            // 
+            // pictureBoxGrayScale
+            // 
+            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
+            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
+            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 360);
+            this.pictureBoxGrayScale.TabIndex = 0;
+            this.pictureBoxGrayScale.Title = "Grey Scale";
             // 
             // panel1
             // 
@@ -452,7 +524,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1014, 26);
+            this.panel1.Size = new System.Drawing.Size(1014, 40);
             this.panel1.TabIndex = 6;
             // 
             // button1
@@ -496,65 +568,35 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonOtsuCv
+            // radioButtonSobel
             // 
-            this.radioButtonOtsuCv.AutoSize = true;
-            this.radioButtonOtsuCv.Location = new System.Drawing.Point(748, 65);
-            this.radioButtonOtsuCv.Name = "radioButtonOtsuCv";
-            this.radioButtonOtsuCv.Size = new System.Drawing.Size(163, 17);
-            this.radioButtonOtsuCv.TabIndex = 29;
-            this.radioButtonOtsuCv.TabStop = true;
-            this.radioButtonOtsuCv.Text = "Ostu Thresholding (Open CV)";
-            this.radioButtonOtsuCv.UseVisualStyleBackColor = true;
-            this.radioButtonOtsuCv.CheckedChanged += new System.EventHandler(this.radioButtonOtsuCv_CheckedChanged);
+            this.radioButtonSobel.AutoSize = true;
+            this.radioButtonSobel.Location = new System.Drawing.Point(9, 134);
+            this.radioButtonSobel.Name = "radioButtonSobel";
+            this.radioButtonSobel.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonSobel.TabIndex = 32;
+            this.radioButtonSobel.TabStop = true;
+            this.radioButtonSobel.Text = "Sobel";
+            this.radioButtonSobel.UseVisualStyleBackColor = true;
+            this.radioButtonSobel.CheckedChanged += new System.EventHandler(this.radioButtonSobel_CheckedChanged);
             // 
-            // pictureBoxAsli
+            // radioButtonPreProcessing
             // 
-            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
-            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxAsli.Name = "pictureBoxAsli";
-            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 304);
-            this.pictureBoxAsli.TabIndex = 0;
-            this.pictureBoxAsli.Title = "Foto Asli";
-            // 
-            // pictureBoxHasil
-            // 
-            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
-            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxHasil.Name = "pictureBoxHasil";
-            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 304);
-            this.pictureBoxHasil.TabIndex = 0;
-            this.pictureBoxHasil.Title = "Hasil Transformasi";
-            // 
-            // pictureBoxGrayScale
-            // 
-            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
-            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
-            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 304);
-            this.pictureBoxGrayScale.TabIndex = 0;
-            this.pictureBoxGrayScale.Title = "Grey Scale";
-            // 
-            // radioButtonGaussianBlur
-            // 
-            this.radioButtonGaussianBlur.AutoSize = true;
-            this.radioButtonGaussianBlur.Location = new System.Drawing.Point(746, 88);
-            this.radioButtonGaussianBlur.Name = "radioButtonGaussianBlur";
-            this.radioButtonGaussianBlur.Size = new System.Drawing.Size(90, 17);
-            this.radioButtonGaussianBlur.TabIndex = 30;
-            this.radioButtonGaussianBlur.TabStop = true;
-            this.radioButtonGaussianBlur.Text = "Gaussian Blur";
-            this.radioButtonGaussianBlur.UseVisualStyleBackColor = true;
-            this.radioButtonGaussianBlur.CheckedChanged += new System.EventHandler(this.radioButtonGaussianBlur_CheckedChanged);
+            this.radioButtonPreProcessing.AutoSize = true;
+            this.radioButtonPreProcessing.Location = new System.Drawing.Point(173, 134);
+            this.radioButtonPreProcessing.Name = "radioButtonPreProcessing";
+            this.radioButtonPreProcessing.Size = new System.Drawing.Size(96, 17);
+            this.radioButtonPreProcessing.TabIndex = 33;
+            this.radioButtonPreProcessing.TabStop = true;
+            this.radioButtonPreProcessing.Text = "Pre-Processing";
+            this.radioButtonPreProcessing.UseVisualStyleBackColor = true;
+            this.radioButtonPreProcessing.CheckedChanged += new System.EventHandler(this.radioButtonPreProcessing_CheckedChanged);
             // 
             // FormOlahCitra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1020, 544);
+            this.ClientSize = new System.Drawing.Size(1020, 689);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FormOlahCitra";
             this.Text = "Pengolahan Citra";
@@ -611,6 +653,9 @@
         private System.Windows.Forms.RadioButton radioButtonSharpeningLaplacian;
         private System.Windows.Forms.RadioButton radioButtonOtsuCv;
         private System.Windows.Forms.RadioButton radioButtonGaussianBlur;
+        private System.Windows.Forms.RadioButton radioButtonGreenSegmentation;
+        private System.Windows.Forms.RadioButton radioButtonSobel;
+        private System.Windows.Forms.RadioButton radioButtonPreProcessing;
     }
 }
 

@@ -96,7 +96,9 @@
     <Compile Include="Strategy\GrayLevelSplit\FormOptions.Designer.cs">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\GreenSegmentation\GreenSegmentationStrategy.cs" />
     <Compile Include="Strategy\OtsuCv\OtsuCvStrategy.cs" />
+    <Compile Include="Strategy\PreProcessing\PreProcessingStrategy.cs" />
     <Compile Include="Strategy\SharpeningLaplacian\SharpeningLaplacianStrategy.cs" />
     <Compile Include="Strategy\ITransformationStrategyContext.cs" />
     <Compile Include="Strategy\BitPlaneSlicing\BitPlaneSlicingStrategy.cs" />
@@ -138,6 +140,7 @@
       <DependentUpon>FormHasil.cs</DependentUpon>
     </Compile>
     <Compile Include="Strategy\RGBSplit\RBGSplitStrategy.cs" />
+    <Compile Include="Strategy\Sobel\SobelStrategy.cs" />
     <Compile Include="Strategy\TransformationStrategy.cs" />
     <Compile Include="Strategy\Watershed\WatershedStrategy.cs" />
     <EmbeddedResource Include="FormHistogram.resx">

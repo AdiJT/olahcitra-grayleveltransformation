@@ -20,6 +20,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OlahCitra.Strategy.OtsuCv;
 using OlahCitra.Strategy.GaussianBlur;
+using OlahCitra.Strategy.GreenSegmentation;
+using OlahCitra.Strategy.Sobel;
+using OlahCitra.Strategy.PreProcessing;
 
 namespace OlahCitra
 {
@@ -257,6 +260,24 @@ namespace OlahCitra
         {
             if (radioButtonGaussianBlur.Checked == true)
                 _currentStrategy = new GaussianBlurStrategy(this);
+        }
+
+        private void radioButtonGreenSegmentation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonGreenSegmentation.Checked == true)
+                _currentStrategy = new GreenSegmentationStrategy(this);
+        }
+
+        private void radioButtonSobel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonSobel.Checked == true)
+                _currentStrategy = new SobelStrategy(this);
+        }
+
+        private void radioButtonPreProcessing_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonPreProcessing.Checked == true)
+                _currentStrategy = new PreProcessingStrategy(this);
         }
     }
 }

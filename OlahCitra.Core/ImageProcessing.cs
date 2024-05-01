@@ -9,6 +9,7 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OlahCitra.Core
 {
@@ -351,7 +352,7 @@ namespace OlahCitra.Core
 
             using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
             {
-                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(10, 10), new Point(1, 1));
 
                 CvInvoke.MorphologyEx(image,
                                       image,
@@ -374,7 +375,7 @@ namespace OlahCitra.Core
 
             using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
             {
-                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(kernelSize, kernelSize), new Point(1, 1));
 
                 CvInvoke.MorphologyEx(image,
                                       image,
@@ -397,7 +398,7 @@ namespace OlahCitra.Core
 
             using (UMat image = input.ToImage<Gray, Byte>().ToUMat())
             {
-                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(1, 1));
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(kernelSize, kernelSize), new Point(1, 1));
 
                 CvInvoke.MorphologyEx(image,
                                       image,
@@ -424,30 +425,13 @@ namespace OlahCitra.Core
             using (UMat unknown = new UMat())
             using (UMat markers = new UMat())
             {
-                float[,] kernelMat = new float[3, 3]
-                {
-                    {1, 1, 1 },
-                    {1, -8, 1 },
-                    {1, 1, 1 }
-                };
-                ConvolutionKernelF kernelLap = new ConvolutionKernelF(kernelMat);
-
-                Mat imgLaplacian = new Mat(image.Size, DepthType.Cv32F, 3);
-                CvInvoke.Filter2D(image, imgLaplacian, kernelLap, new Point(-1, -1));
-
-                Mat sharp = new Mat();
-                image.Mat.ConvertTo(sharp, DepthType.Cv32F);
-                Mat imgResult = sharp - imgLaplacian;
-
-                imgLaplacian.ConvertTo(imgLaplacian, DepthType.Cv8U);
-                Image<Bgr, byte> imageSharp = imgResult.ToImage<Bgr, byte>();
 
                 //Konversi ke grayscale
-                CvInvoke.CvtColor(imageSharp, imageGray, ColorConversion.Bgr2Gray);
+                CvInvoke.CvtColor(image, imageGray, ColorConversion.Bgr2Gray);
                 CvInvoke.Threshold(imageGray, imageClear, 0, 255, ThresholdType.Otsu);
 
                 //Kernel
-                var kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Ellipse, new Size(8, 8), new Point(-1, -1));
 
                 //Removing noise
                 CvInvoke.MorphologyEx(imageClear, imageClear, MorphOp.Open, kernel, new Point(-1, -1), 1, BorderType.Default, new MCvScalar());
@@ -462,15 +446,18 @@ namespace OlahCitra.Core
                 //Get unknown
                 CvInvoke.Subtract(sureBg, sureFg, unknown);
 
-                //Get Markers
-                CvInvoke.ConnectedComponents(sureFg, markers, LineType.EightConnected, DepthType.Cv32S);
+                CvInvoke.Imshow("SureFg", sureFg);
+                CvInvoke.Imshow("SureBg", sureBg);
+                CvInvoke.Imshow("Unknown", unknown);
 
-                Matrix<int> markersMat = new Matrix<int>(markers.Rows, markers.Cols);
+                //Get Markers
+                CvInvoke.ConnectedComponents(sureFg, markers);
+
+                Matrix<int> markersMat = new Matrix<int>(markers.Size);
                 markers.CopyTo(markersMat);
                 markersMat += 1;
-                Mat m = new Mat();
 
-                Matrix<byte> unknownMat = new Matrix<byte>(unknown.Rows, unknown.Cols);
+                Matrix<byte> unknownMat = new Matrix<byte>(unknown.Size);
                 unknown.CopyTo(unknownMat);
 
                 for (int x = 0; x < unknownMat.Rows; x++)
@@ -494,7 +481,7 @@ namespace OlahCitra.Core
             var image = input.ToImage<Bgr, byte>();
             UMat imageGray = new UMat();
             CvInvoke.CvtColor(image, imageGray, ColorConversion.Bgr2Gray);
-            CvInvoke.AdaptiveThreshold(imageGray, imageGray, 255, AdaptiveThresholdType.MeanC, ThresholdType.Binary, 3, c);
+            CvInvoke.AdaptiveThreshold(imageGray, imageGray, 255, AdaptiveThresholdType.GaussianC, ThresholdType.Binary, 3, c);
 
             var outImage = imageGray.ToBitmap();
             image.Dispose();
@@ -593,6 +580,90 @@ namespace OlahCitra.Core
             }
 
             return outImage;
+        }
+
+        public static Bitmap GreenSegmentation(Bitmap original)
+        {
+            Bitmap outImage = new Bitmap(original.Width, original.Height);
+            using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
+            using (UMat imageHsv = new UMat())
+            using (UMat mask = new UMat())
+            using (UMat result = new UMat())
+            {
+                CvInvoke.GaussianBlur(image, image, new Size(5, 5), 0);
+                CvInvoke.CvtColor(image, imageHsv, ColorConversion.Bgr2Hsv);
+
+                CvInvoke.InRange(imageHsv,
+                                 new ScalarArray(new MCvScalar(40, 25, 0)),
+                                 new ScalarArray(new MCvScalar(110, 255, 190)),
+                                 mask);
+
+                CvInvoke.BitwiseAnd(image, image, result, mask);
+
+                outImage = result.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap Sobel(Bitmap original)
+        {
+            Bitmap outImage = new Bitmap(original.Width, original.Height);
+
+            using (Image<Bgr, byte> image = original.ToImage<Bgr, byte>())
+            using (var imageGrey = image.Convert<Gray, byte>())
+            using (UMat x = new UMat())
+            using (UMat y = new UMat())
+            using (UMat sobel = new UMat())
+            using (UMat result = new UMat())
+            {
+                CvInvoke.Sobel(imageGrey, x, DepthType.Cv16S, 1, 0);
+                CvInvoke.Sobel(imageGrey, y, DepthType.Cv16S, 0, 1);
+                CvInvoke.Add(x, y, sobel);
+                CvInvoke.ConvertScaleAbs(sobel, result, 1, 0);
+                CvInvoke.Threshold(result, result, 0, 255, ThresholdType.Otsu | ThresholdType.BinaryInv);
+
+                outImage = result.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Dictionary<string, Bitmap> PreProcessing(Bitmap original)
+        {
+            var dictionary = new Dictionary<string, Bitmap>();
+
+            var outImage = OtsuCv(original);
+            dictionary.Add("Otsu", outImage);
+
+            outImage = Opening(outImage, 5);
+            dictionary.Add("Opening", outImage);
+
+            outImage = Closing(outImage, 5);
+            dictionary.Add("Closing", outImage);
+
+            var greenMask = GreenSegmentation(original);
+            dictionary.Add("Green Mask", greenMask);
+
+            var edgeMask = Sobel(original);
+            dictionary.Add("Edge Mask", edgeMask);
+
+            using (var image = outImage.ToImage<Gray, byte>())
+            using(var green = greenMask.ToImage<Gray, byte>())
+            using(var edge = edgeMask.ToImage<Gray, byte>())
+            {
+                CvInvoke.BitwiseAnd(image, green, image);
+                dictionary.Add("Closing AND Green Mask", image.ToBitmap());
+
+                CvInvoke.BitwiseAnd(image, edge, image);
+                dictionary.Add("Closing AND Edge Mask", image.ToBitmap());
+
+                outImage = image.ToBitmap();
+            }
+
+            dictionary.Add("Result", outImage);
+
+            return dictionary;
         }
     }
 }

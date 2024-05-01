@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonPick = new System.Windows.Forms.Button();
             this.numericUpDownTargetB = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownTargetG = new System.Windows.Forms.NumericUpDown();
@@ -39,16 +40,24 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.numericUpDownMaxDist = new System.Windows.Forms.NumericUpDown();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.buttonPick = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTargetB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTargetG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTargetR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxDist)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.trackBar3);
+            this.groupBox1.Controls.Add(this.trackBar2);
+            this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Controls.Add(this.buttonPick);
             this.groupBox1.Controls.Add(this.numericUpDownTargetB);
             this.groupBox1.Controls.Add(this.label3);
@@ -58,14 +67,24 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(322, 91);
+            this.groupBox1.Size = new System.Drawing.Size(322, 207);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Target RGB";
             // 
+            // buttonPick
+            // 
+            this.buttonPick.Location = new System.Drawing.Point(117, 178);
+            this.buttonPick.Name = "buttonPick";
+            this.buttonPick.Size = new System.Drawing.Size(75, 23);
+            this.buttonPick.TabIndex = 6;
+            this.buttonPick.Text = "Pick Color";
+            this.buttonPick.UseVisualStyleBackColor = true;
+            this.buttonPick.Click += new System.EventHandler(this.buttonPick_Click);
+            // 
             // numericUpDownTargetB
             // 
-            this.numericUpDownTargetB.Location = new System.Drawing.Point(251, 26);
+            this.numericUpDownTargetB.Location = new System.Drawing.Point(37, 130);
             this.numericUpDownTargetB.Maximum = new decimal(new int[] {
             255,
             0,
@@ -78,7 +97,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(220, 30);
+            this.label3.Location = new System.Drawing.Point(6, 134);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 13);
             this.label3.TabIndex = 4;
@@ -86,7 +105,7 @@
             // 
             // numericUpDownTargetG
             // 
-            this.numericUpDownTargetG.Location = new System.Drawing.Point(145, 26);
+            this.numericUpDownTargetG.Location = new System.Drawing.Point(37, 75);
             this.numericUpDownTargetG.Maximum = new decimal(new int[] {
             255,
             0,
@@ -99,7 +118,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(114, 30);
+            this.label2.Location = new System.Drawing.Point(6, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(15, 13);
             this.label2.TabIndex = 2;
@@ -129,7 +148,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 109);
+            this.label4.Location = new System.Drawing.Point(18, 240);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 2;
@@ -137,7 +156,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(129, 137);
+            this.buttonOK.Location = new System.Drawing.Point(129, 268);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 4;
@@ -153,7 +172,7 @@
             0,
             0,
             196608});
-            this.numericUpDownMaxDist.Location = new System.Drawing.Point(129, 109);
+            this.numericUpDownMaxDist.Location = new System.Drawing.Point(129, 240);
             this.numericUpDownMaxDist.Maximum = new decimal(new int[] {
             -647710721,
             69,
@@ -168,21 +187,35 @@
             0,
             0});
             // 
-            // buttonPick
+            // trackBar1
             // 
-            this.buttonPick.Location = new System.Drawing.Point(117, 62);
-            this.buttonPick.Name = "buttonPick";
-            this.buttonPick.Size = new System.Drawing.Size(75, 23);
-            this.buttonPick.TabIndex = 6;
-            this.buttonPick.Text = "Pick Color";
-            this.buttonPick.UseVisualStyleBackColor = true;
-            this.buttonPick.Click += new System.EventHandler(this.buttonPick_Click);
+            this.trackBar1.Location = new System.Drawing.Point(117, 26);
+            this.trackBar1.Maximum = 255;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(199, 45);
+            this.trackBar1.TabIndex = 7;
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(117, 75);
+            this.trackBar2.Maximum = 255;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(199, 45);
+            this.trackBar2.TabIndex = 8;
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.Location = new System.Drawing.Point(117, 130);
+            this.trackBar3.Maximum = 255;
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Size = new System.Drawing.Size(199, 45);
+            this.trackBar3.TabIndex = 9;
             // 
             // FormOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 172);
+            this.ClientSize = new System.Drawing.Size(343, 302);
             this.ControlBox = false;
             this.Controls.Add(this.numericUpDownMaxDist);
             this.Controls.Add(this.buttonOK);
@@ -199,6 +232,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTargetG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTargetR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxDist)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,5 +254,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMaxDist;
         private System.Windows.Forms.Button buttonPick;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.TrackBar trackBar3;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
