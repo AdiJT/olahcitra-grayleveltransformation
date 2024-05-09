@@ -601,13 +601,13 @@ namespace OlahCitra.Core
                                  mask);
 
 
-                var kernel = CvInvoke.GetStructuringElement(ElementShape.Ellipse, new Size(3, 3), new Point(-1, -1));
-                CvInvoke.MorphologyEx(mask, mask, MorphOp.Dilate, kernel, new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
+                //var kernel = CvInvoke.GetStructuringElement(ElementShape.Ellipse, new Size(3, 3), new Point(-1, -1));
+                //CvInvoke.MorphologyEx(mask, mask, MorphOp.Dilate, kernel, new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
                 //CvInvoke.BitwiseNot(mask, mask);
 
                 CvInvoke.BitwiseAnd(image, image, result, mask);
 
-                outImage = mask.ToBitmap();
+                outImage = result.ToBitmap();
             }
 
             return outImage;
