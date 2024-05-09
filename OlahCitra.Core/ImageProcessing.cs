@@ -596,8 +596,8 @@ namespace OlahCitra.Core
                 CvInvoke.CvtColor(image, imageHsv, ColorConversion.Bgr2Hsv);
 
                 CvInvoke.InRange(imageHsv,
-                                 new ScalarArray(new MCvScalar(36, 30, 30)),
-                                 new ScalarArray(new MCvScalar(102, 255, 255)),
+                                 new ScalarArray(new MCvScalar(35, 30, 30)),
+                                 new ScalarArray(new MCvScalar(80, 255, 255)),
                                  mask);
 
 
