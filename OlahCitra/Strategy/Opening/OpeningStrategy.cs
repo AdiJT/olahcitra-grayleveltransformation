@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OlahCitra.Strategy.Opening
 {
@@ -18,7 +19,15 @@ namespace OlahCitra.Strategy.Opening
         {
             var greyScale = _context.GrayScaleImage;
 
-            return Task.FromResult(ImageProcessing.Opening(greyScale, 10));
+            var kernelSize = 3;
+
+            using (var formOptions = new FormOptions())
+            {
+                if(formOptions.ShowDialog() == DialogResult.OK)
+                    kernelSize = formOptions.KernelSize;
+            }
+
+            return Task.FromResult(ImageProcessing.Opening(greyScale, kernelSize));
         }
     }
 }

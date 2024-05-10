@@ -246,6 +246,11 @@
             this.numericUpDownHighSaturation.Name = "numericUpDownHighSaturation";
             this.numericUpDownHighSaturation.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownHighSaturation.TabIndex = 8;
+            this.numericUpDownHighSaturation.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numericUpDownLowSaturation
             // 
@@ -270,6 +275,11 @@
             this.numericUpDownHighValue.Name = "numericUpDownHighValue";
             this.numericUpDownHighValue.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownHighValue.TabIndex = 10;
+            this.numericUpDownHighValue.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numericUpDownLowValue
             // 
