@@ -27,6 +27,7 @@ using OlahCitra.Strategy.PreProcessing;
 using OlahCitra.Strategy.Canny;
 using OlahCitra.Strategy.ColorCorrection;
 using OlahCitra.Strategy.HSVColorSegmentation;
+using OlahCitra.Strategy.BlobDetection;
 
 namespace OlahCitra
 {
@@ -300,6 +301,12 @@ namespace OlahCitra
         {
             if (radioButtonHSVColorSegmentation.Checked == true)
                 _currentStrategy = new HSVColorSegmentationStrategy(this);
+        }
+
+        private void radioButtonBlobDetection_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBlobDetection.Checked == true)
+                _currentStrategy = new BlobDetectionStrategy(this);
         }
     }
 }

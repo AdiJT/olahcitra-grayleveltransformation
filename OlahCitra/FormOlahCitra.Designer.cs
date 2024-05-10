@@ -31,9 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.radioButtonColorCorrection = new System.Windows.Forms.RadioButton();
             this.radioButtonCanny = new System.Windows.Forms.RadioButton();
@@ -66,7 +64,6 @@
             this.radioButtonNegatif = new System.Windows.Forms.RadioButton();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
@@ -74,6 +71,10 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.radioButtonHSVColorSegmentation = new System.Windows.Forms.RadioButton();
+            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
+            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
+            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
+            this.radioButtonBlobDetection = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -100,7 +101,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.779661F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.93221F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.28813F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1020, 689);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1138, 689);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -109,45 +110,26 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 49);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(333, 379);
+            this.groupBox1.Size = new System.Drawing.Size(373, 379);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Foto Asli";
-            // 
-            // pictureBoxAsli
-            // 
-            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
-            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxAsli.Name = "pictureBoxAsli";
-            this.pictureBoxAsli.Size = new System.Drawing.Size(327, 360);
-            this.pictureBoxAsli.TabIndex = 0;
-            this.pictureBoxAsli.Title = "Foto Asli";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBoxHasil);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(682, 49);
+            this.groupBox3.Location = new System.Drawing.Point(761, 49);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(335, 379);
+            this.groupBox3.Size = new System.Drawing.Size(374, 379);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hasil Transformasi";
             // 
-            // pictureBoxHasil
-            // 
-            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
-            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxHasil.Name = "pictureBoxHasil";
-            this.pictureBoxHasil.Size = new System.Drawing.Size(329, 360);
-            this.pictureBoxHasil.TabIndex = 0;
-            this.pictureBoxHasil.Title = "Hasil Transformasi";
-            // 
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonBlobDetection);
             this.groupBox4.Controls.Add(this.radioButtonHSVColorSegmentation);
             this.groupBox4.Controls.Add(this.radioButtonColorCorrection);
             this.groupBox4.Controls.Add(this.radioButtonCanny);
@@ -182,7 +164,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(3, 434);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1014, 252);
+            this.groupBox4.Size = new System.Drawing.Size(1132, 252);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
@@ -542,7 +524,7 @@
             this.progressBar1.Location = new System.Drawing.Point(3, 223);
             this.progressBar1.MarqueeAnimationSpeed = 10;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1008, 26);
+            this.progressBar1.Size = new System.Drawing.Size(1126, 26);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 0;
             this.progressBar1.Value = 100;
@@ -552,22 +534,12 @@
             // 
             this.groupBox2.Controls.Add(this.pictureBoxGrayScale);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(342, 49);
+            this.groupBox2.Location = new System.Drawing.Point(382, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(334, 379);
+            this.groupBox2.Size = new System.Drawing.Size(373, 379);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gray Scale";
-            // 
-            // pictureBoxGrayScale
-            // 
-            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
-            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
-            this.pictureBoxGrayScale.Size = new System.Drawing.Size(328, 360);
-            this.pictureBoxGrayScale.TabIndex = 0;
-            this.pictureBoxGrayScale.Title = "Grey Scale";
             // 
             // panel1
             // 
@@ -578,7 +550,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1014, 40);
+            this.panel1.Size = new System.Drawing.Size(1132, 40);
             this.panel1.TabIndex = 6;
             // 
             // button1
@@ -594,7 +566,7 @@
             // buttonTransform
             // 
             this.buttonTransform.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTransform.Location = new System.Drawing.Point(913, 3);
+            this.buttonTransform.Location = new System.Drawing.Point(1031, 3);
             this.buttonTransform.Name = "buttonTransform";
             this.buttonTransform.Size = new System.Drawing.Size(92, 23);
             this.buttonTransform.TabIndex = 3;
@@ -634,11 +606,53 @@
             this.radioButtonHSVColorSegmentation.UseVisualStyleBackColor = true;
             this.radioButtonHSVColorSegmentation.CheckedChanged += new System.EventHandler(this.radioButtonHSVColorSegmentation_CheckedChanged);
             // 
+            // pictureBoxAsli
+            // 
+            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
+            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxAsli.Name = "pictureBoxAsli";
+            this.pictureBoxAsli.Size = new System.Drawing.Size(367, 360);
+            this.pictureBoxAsli.TabIndex = 0;
+            this.pictureBoxAsli.Title = "Foto Asli";
+            // 
+            // pictureBoxHasil
+            // 
+            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
+            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxHasil.Name = "pictureBoxHasil";
+            this.pictureBoxHasil.Size = new System.Drawing.Size(368, 360);
+            this.pictureBoxHasil.TabIndex = 0;
+            this.pictureBoxHasil.Title = "Hasil Transformasi";
+            // 
+            // pictureBoxGrayScale
+            // 
+            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
+            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
+            this.pictureBoxGrayScale.Size = new System.Drawing.Size(367, 360);
+            this.pictureBoxGrayScale.TabIndex = 0;
+            this.pictureBoxGrayScale.Title = "Grey Scale";
+            // 
+            // radioButtonBlobDetection
+            // 
+            this.radioButtonBlobDetection.AutoSize = true;
+            this.radioButtonBlobDetection.Location = new System.Drawing.Point(918, 19);
+            this.radioButtonBlobDetection.Name = "radioButtonBlobDetection";
+            this.radioButtonBlobDetection.Size = new System.Drawing.Size(95, 17);
+            this.radioButtonBlobDetection.TabIndex = 37;
+            this.radioButtonBlobDetection.TabStop = true;
+            this.radioButtonBlobDetection.Text = "Blob Detection";
+            this.radioButtonBlobDetection.UseVisualStyleBackColor = true;
+            this.radioButtonBlobDetection.CheckedChanged += new System.EventHandler(this.radioButtonBlobDetection_CheckedChanged);
+            // 
             // FormOlahCitra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1020, 689);
+            this.ClientSize = new System.Drawing.Size(1138, 689);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FormOlahCitra";
             this.Text = "Pengolahan Citra";
@@ -701,6 +715,7 @@
         private System.Windows.Forms.RadioButton radioButtonCanny;
         private System.Windows.Forms.RadioButton radioButtonColorCorrection;
         private System.Windows.Forms.RadioButton radioButtonHSVColorSegmentation;
+        private System.Windows.Forms.RadioButton radioButtonBlobDetection;
     }
 }
 

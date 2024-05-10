@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -750,6 +751,66 @@ namespace OlahCitra.Core
             Bitmap outImage = HSVColorSegmentation(input, lowHue, highHue);
 
             return outImage;
+        }
+
+        public static (Bitmap, List<List<Point>>) BlobDetection(Bitmap input, int minJmlPiksel)
+        {
+            var outImage = new Bitmap(input.Width, input.Height);
+            var listBlob = new List<List<Point>>();
+
+            using (var image = input.ToImage<Bgr, byte>())
+            using (var imageGray = image.Convert<Gray, byte>())
+            using (var markers = new UMat())
+            using (var result = new Matrix<int>(image.Rows, image.Cols))
+            using (var resultImage = new Image<Bgr, byte>(image.Width, image.Height))
+            {
+                var jumlah = CvInvoke.ConnectedComponents(imageGray, markers, LineType.FourConnected) - 1;
+                var blob = new List<List<Point>>();
+
+                for (int i = 0; i < jumlah; i++)
+                    blob.Add(new List<Point>());
+
+                markers.CopyTo(result);
+                markers.ConvertTo(markers, DepthType.Cv8U, 100);
+
+                for (int i = 0; i < result.Rows; i++)
+                {
+                    for (int j = 0; j < result.Cols; j++)
+                    {
+                        var label = result[i, j];
+
+                        if (label != 0)
+                            blob[label - 1].Add(new Point(i, j));
+                    }
+                }
+
+                for (int i = 0; i < jumlah; i++)
+                {
+                    if (blob[i].Count >= minJmlPiksel)
+                        listBlob.Add(blob[i]);
+                }
+
+                //Pelabelan
+                var random = new Random();
+                var colorLabel = new List<Color>();
+                for (int i = 0; i < listBlob.Count; i++)
+                {
+                    var randR = random.Next(0, 256);
+                    var randG = random.Next(0, 256);
+                    var randB = random.Next(0, 256);
+                    colorLabel.Add(Color.FromArgb(randR, randG, randB));
+                }
+
+                for(int i = 0; i < listBlob.Count; i++)
+                    foreach (var point in listBlob[i])
+                    {
+                        resultImage[point.X, point.Y] = new Bgr(colorLabel[i].B, colorLabel[i].G, colorLabel[i].R);
+                    }
+
+                outImage = resultImage.ToBitmap();
+            }
+
+            return (outImage, listBlob);
         }
     }
 }

@@ -78,6 +78,7 @@
     <Compile Include="Strategy\BitPlaneSlicing\FormOptions.Designer.cs">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategy\BlobDetection\BlobDetectionStrategy.cs" />
     <Compile Include="Strategy\Canny\CannyStrategy.cs" />
     <Compile Include="Strategy\Closing\ClosingStrategy.cs" />
     <Compile Include="Strategy\Closing\FormOptions.cs">
