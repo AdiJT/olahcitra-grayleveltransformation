@@ -175,7 +175,7 @@ namespace OlahCitra.Core
             var total = histogram.Sum();
 
             var sum = 0f;
-            for (int i = 0; i < histogram.Length; i++) sum += i * histogram[i];
+            for (int i = 1; i < histogram.Length; i++) sum += i * histogram[i];
 
             var sumB = 0f;
             var wB = 0;
@@ -184,7 +184,7 @@ namespace OlahCitra.Core
             var varMax = 0f;
             var threshold = 0;
 
-            for (int i = 0; i < histogram.Length; i++)
+            for (int i = 1; i < histogram.Length; i++)
             {
                 wB += histogram[i];
 
@@ -223,7 +223,7 @@ namespace OlahCitra.Core
 
                 outImage = result.ToBitmap();
             }
-            
+
             return outImage;
         }
 
@@ -583,6 +583,32 @@ namespace OlahCitra.Core
             return outImage;
         }
 
+        public static Bitmap ColorCorrection(Bitmap input, int deltaR, int deltaG, int deltaB)
+        {
+            Bitmap outImage = new Bitmap(input.Width, input.Height);
+            using (Image<Bgr, byte> image = input.ToImage<Bgr, byte>())
+            using (Image<Bgr, byte> result = new Image<Bgr, byte>(image.Width, image.Height))
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    for (int y = 0; y < image.Height; y++)
+                    {
+                        var pixel = image[y, x];
+                        var newPixel = new Bgr(
+                            (int)(((pixel.Blue - deltaB) * (255 - deltaB)) / 255),
+                            (int)(((pixel.Green - deltaG) * (255 - deltaG)) / 255),
+                            (int)(((pixel.Red - deltaR) * (255 - deltaR)) / 255)
+                        );
+                        result[y, x] = newPixel;
+                    }
+                }
+
+                outImage = result.ToBitmap();
+            }
+
+            return outImage;
+        }
+
         public static Bitmap GreenSegmentation(Bitmap original)
         {
             Bitmap outImage = new Bitmap(original.Width, original.Height);
@@ -597,13 +623,14 @@ namespace OlahCitra.Core
 
                 CvInvoke.InRange(imageHsv,
                                  new ScalarArray(new MCvScalar(35, 30, 30)),
-                                 new ScalarArray(new MCvScalar(80, 255, 255)),
+                                 new ScalarArray(new MCvScalar(80, 255, 160)),
                                  mask);
 
 
-                //var kernel = CvInvoke.GetStructuringElement(ElementShape.Ellipse, new Size(3, 3), new Point(-1, -1));
-                //CvInvoke.MorphologyEx(mask, mask, MorphOp.Dilate, kernel, new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
-                //CvInvoke.BitwiseNot(mask, mask);
+
+                var kernel = CvInvoke.GetStructuringElement(ElementShape.Ellipse, new Size(5, 5), new Point(-1, -1));
+                //CvInvoke.MorphologyEx(mask, mask, MorphOp.Close, kernel, new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
+                CvInvoke.BitwiseNot(mask, mask);
 
                 CvInvoke.BitwiseAnd(image, image, result, mask);
 
@@ -633,7 +660,7 @@ namespace OlahCitra.Core
 
             return outImage;
         }
-        
+
         public static Bitmap Canny(Bitmap original)
         {
             Bitmap outImage = new Bitmap(original.Width, original.Height);
@@ -695,6 +722,34 @@ namespace OlahCitra.Core
             dictionary.Add("Result", outImage);
 
             return dictionary;
+        }
+
+        public static Bitmap HSVColorSegmentation(Bitmap input, int[] low, int[] high)
+        {
+            Bitmap outImage = new Bitmap(input.Width, input.Height);
+
+            using (var image = input.ToImage<Bgr, byte>())
+            using (var imageHsv = image.Convert<Hsv, byte>())
+            using (var mask = new UMat())
+            using (var result = new UMat())
+            {
+                var lowHue = new ScalarArray(new MCvScalar(low[0], low[1], low[2]));
+                var highHue = new ScalarArray(new MCvScalar(high[0], high[1], high[2]));
+                CvInvoke.InRange(imageHsv, lowHue, highHue, mask);
+                CvInvoke.BitwiseAnd(image, image, result, mask);
+                outImage = result.ToBitmap();
+            }
+
+            return outImage;
+        }
+
+        public static Bitmap HSVColorSegmentation(Bitmap input, int hue, int hueRange)
+        {
+            var lowHue = new int[] { Math.Max(hue - hueRange, 0), 30, 30 };
+            var highHue = new int[] { Math.Min(hue + hueRange, 255), 255, 255 };
+            Bitmap outImage = HSVColorSegmentation(input, lowHue, highHue);
+
+            return outImage;
         }
     }
 }

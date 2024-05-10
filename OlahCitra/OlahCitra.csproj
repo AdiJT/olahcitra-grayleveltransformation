@@ -81,6 +81,13 @@
     <Compile Include="Strategy\Canny\CannyStrategy.cs" />
     <Compile Include="Strategy\Closing\ClosingStrategy.cs" />
     <Compile Include="Strategy\ColorConstancy\ColorConstancyStrategy.cs" />
+    <Compile Include="Strategy\ColorCorrection\ColorCorrectionStrategy.cs" />
+    <Compile Include="Strategy\ColorCorrection\FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\ColorCorrection\FormOptions.Designer.cs">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Strategy\Dilasi\DilasiStrategy.cs" />
     <Compile Include="Strategy\Erosi\ErosiStrategy.cs" />
     <Compile Include="Strategy\EuclidDist\EuclidDistStrategy.cs" />
@@ -98,6 +105,13 @@
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Strategy\GreenSegmentation\GreenSegmentationStrategy.cs" />
+    <Compile Include="Strategy\HSVColorSegmentation\FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\HSVColorSegmentation\FormOptions.Designer.cs">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strategy\HSVColorSegmentation\HSVColorSegmentationStrategy.cs" />
     <Compile Include="Strategy\OtsuCv\OtsuCvStrategy.cs" />
     <Compile Include="Strategy\PreProcessing\PreProcessingStrategy.cs" />
     <Compile Include="Strategy\SharpeningLaplacian\SharpeningLaplacianStrategy.cs" />
@@ -171,10 +185,16 @@
     <EmbeddedResource Include="Strategy\BitPlaneSlicing\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\ColorCorrection\FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Strategy\EuclidDist\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strategy\GrayLevelSplit\FormOptions.resx">
+      <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\HSVColorSegmentation\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strategy\PieceWise\FormOptions.resx">

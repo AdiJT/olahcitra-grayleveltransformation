@@ -1,4 +1,9 @@
-﻿using OlahCitra.Core;
+﻿using System;
+using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+using OlahCitra.Core;
 using OlahCitra.Strategy;
 using OlahCitra.Strategy.AdaptMeanThreshold;
 using OlahCitra.Strategy.Closing;
@@ -14,16 +19,14 @@ using OlahCitra.Strategy.Opening;
 using OlahCitra.Strategy.OtsuThresholding;
 using OlahCitra.Strategy.RGBSplit;
 using OlahCitra.Strategy.Watershed;
-using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using OlahCitra.Strategy.OtsuCv;
 using OlahCitra.Strategy.GaussianBlur;
 using OlahCitra.Strategy.GreenSegmentation;
 using OlahCitra.Strategy.Sobel;
 using OlahCitra.Strategy.PreProcessing;
 using OlahCitra.Strategy.Canny;
+using OlahCitra.Strategy.ColorCorrection;
+using OlahCitra.Strategy.HSVColorSegmentation;
 
 namespace OlahCitra
 {
@@ -285,6 +288,18 @@ namespace OlahCitra
         {
             if (radioButtonCanny.Checked == true)
                 _currentStrategy = new CannyStrategy(this);
+        }
+
+        private void radioButtonColorCorrection_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( radioButtonColorCorrection.Checked == true)
+                _currentStrategy = new ColorCorrectionStrategy(this);
+        }
+
+        private void radioButtonHSVColorSegmentation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonHSVColorSegmentation.Checked == true)
+                _currentStrategy = new HSVColorSegmentationStrategy(this);
         }
     }
 }

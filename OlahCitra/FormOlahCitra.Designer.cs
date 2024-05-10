@@ -35,6 +35,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonColorCorrection = new System.Windows.Forms.RadioButton();
+            this.radioButtonCanny = new System.Windows.Forms.RadioButton();
             this.radioButtonPreProcessing = new System.Windows.Forms.RadioButton();
             this.radioButtonSobel = new System.Windows.Forms.RadioButton();
             this.radioButtonGreenSegmentation = new System.Windows.Forms.RadioButton();
@@ -71,7 +73,7 @@
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonCanny = new System.Windows.Forms.RadioButton();
+            this.radioButtonHSVColorSegmentation = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -146,6 +148,8 @@
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonHSVColorSegmentation);
+            this.groupBox4.Controls.Add(this.radioButtonColorCorrection);
             this.groupBox4.Controls.Add(this.radioButtonCanny);
             this.groupBox4.Controls.Add(this.radioButtonPreProcessing);
             this.groupBox4.Controls.Add(this.radioButtonSobel);
@@ -182,6 +186,30 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonColorCorrection
+            // 
+            this.radioButtonColorCorrection.AutoSize = true;
+            this.radioButtonColorCorrection.Location = new System.Drawing.Point(593, 134);
+            this.radioButtonColorCorrection.Name = "radioButtonColorCorrection";
+            this.radioButtonColorCorrection.Size = new System.Drawing.Size(100, 17);
+            this.radioButtonColorCorrection.TabIndex = 35;
+            this.radioButtonColorCorrection.TabStop = true;
+            this.radioButtonColorCorrection.Text = "Color Correction";
+            this.radioButtonColorCorrection.UseVisualStyleBackColor = true;
+            this.radioButtonColorCorrection.CheckedChanged += new System.EventHandler(this.radioButtonColorCorrection_CheckedChanged);
+            // 
+            // radioButtonCanny
+            // 
+            this.radioButtonCanny.AutoSize = true;
+            this.radioButtonCanny.Location = new System.Drawing.Point(388, 134);
+            this.radioButtonCanny.Name = "radioButtonCanny";
+            this.radioButtonCanny.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonCanny.TabIndex = 34;
+            this.radioButtonCanny.TabStop = true;
+            this.radioButtonCanny.Text = "Canny";
+            this.radioButtonCanny.UseVisualStyleBackColor = true;
+            this.radioButtonCanny.CheckedChanged += new System.EventHandler(this.radioButtonCanny_CheckedChanged);
             // 
             // radioButtonPreProcessing
             // 
@@ -594,17 +622,17 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonCanny
+            // radioButtonHSVColorSegmentation
             // 
-            this.radioButtonCanny.AutoSize = true;
-            this.radioButtonCanny.Location = new System.Drawing.Point(388, 134);
-            this.radioButtonCanny.Name = "radioButtonCanny";
-            this.radioButtonCanny.Size = new System.Drawing.Size(55, 17);
-            this.radioButtonCanny.TabIndex = 34;
-            this.radioButtonCanny.TabStop = true;
-            this.radioButtonCanny.Text = "Canny";
-            this.radioButtonCanny.UseVisualStyleBackColor = true;
-            this.radioButtonCanny.CheckedChanged += new System.EventHandler(this.radioButtonCanny_CheckedChanged);
+            this.radioButtonHSVColorSegmentation.AutoSize = true;
+            this.radioButtonHSVColorSegmentation.Location = new System.Drawing.Point(748, 134);
+            this.radioButtonHSVColorSegmentation.Name = "radioButtonHSVColorSegmentation";
+            this.radioButtonHSVColorSegmentation.Size = new System.Drawing.Size(142, 17);
+            this.radioButtonHSVColorSegmentation.TabIndex = 36;
+            this.radioButtonHSVColorSegmentation.TabStop = true;
+            this.radioButtonHSVColorSegmentation.Text = "HSV Color Segmentation";
+            this.radioButtonHSVColorSegmentation.UseVisualStyleBackColor = true;
+            this.radioButtonHSVColorSegmentation.CheckedChanged += new System.EventHandler(this.radioButtonHSVColorSegmentation_CheckedChanged);
             // 
             // FormOlahCitra
             // 
@@ -671,6 +699,8 @@
         private System.Windows.Forms.RadioButton radioButtonSobel;
         private System.Windows.Forms.RadioButton radioButtonPreProcessing;
         private System.Windows.Forms.RadioButton radioButtonCanny;
+        private System.Windows.Forms.RadioButton radioButtonColorCorrection;
+        private System.Windows.Forms.RadioButton radioButtonHSVColorSegmentation;
     }
 }
 
