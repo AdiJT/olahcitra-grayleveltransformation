@@ -18,6 +18,12 @@ namespace OlahCitra.Strategy.HSVColorSegmentation
         public override Task<Bitmap> Transform()
         {
             var rgbImage = _context.RGBImage;
+            
+            return Transform(rgbImage);
+        }
+
+        public Task<Bitmap> Transform(Bitmap original)
+        {
             var hue = 0;
             var hueRange = 0;
             var mode = FormOptions.Mode.HueOnly;
@@ -45,10 +51,10 @@ namespace OlahCitra.Strategy.HSVColorSegmentation
                 }
             }
 
-            if(mode == FormOptions.Mode.HueOnly)
-                return Task.FromResult(ImageProcessing.HSVColorSegmentation(rgbImage, hue, hueRange));
+            if (mode == FormOptions.Mode.HueOnly)
+                return Task.FromResult(ImageProcessing.HSVColorSegmentation(original, hue, hueRange));
             else
-                return Task.FromResult(ImageProcessing.HSVColorSegmentation(rgbImage, low, high));
+                return Task.FromResult(ImageProcessing.HSVColorSegmentation(original, low, high));
         }
     }
 }

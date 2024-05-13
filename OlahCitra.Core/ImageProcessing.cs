@@ -218,7 +218,7 @@ namespace OlahCitra.Core
 
             using (var image = original.ToImage<Bgr, byte>())
             using (var imageGray = image.Convert<Gray, byte>())
-            using (var result = new UMat())
+            using (var result = new Mat())
             {
                 CvInvoke.Threshold(imageGray, result, 0, 255, ThresholdType.Otsu | ThresholdType.Binary);
 
@@ -587,7 +587,7 @@ namespace OlahCitra.Core
         public static Bitmap ColorCorrection(Bitmap input, int deltaR, int deltaG, int deltaB)
         {
             Bitmap outImage = new Bitmap(input.Width, input.Height);
-            using (Image<Bgr, byte> image = input.ToImage<Bgr, byte>())
+            using (Image<Bgr, byte> image = input.ToImage<Bgr, byte>().Clone())
             using (Image<Bgr, byte> result = new Image<Bgr, byte>(image.Width, image.Height))
             {
                 for (int x = 0; x < image.Width; x++)
@@ -729,7 +729,7 @@ namespace OlahCitra.Core
         {
             Bitmap outImage = new Bitmap(input.Width, input.Height);
 
-            using (var image = input.ToImage<Bgr, byte>())
+            using (var image = input.ToImage<Bgr, byte>().Clone())
             using (var imageHsv = image.Convert<Hsv, int>())
             using (var mask = new UMat())
             using (var result = new UMat())
@@ -760,7 +760,7 @@ namespace OlahCitra.Core
 
             using (var image = input.ToImage<Bgr, byte>())
             using (var imageGray = image.Convert<Gray, byte>())
-            using (var markers = new UMat())
+            using (var markers = new Mat())
             using (var result = new Matrix<int>(image.Rows, image.Cols))
             using (var resultImage = new Image<Bgr, byte>(image.Width, image.Height))
             {
@@ -780,7 +780,7 @@ namespace OlahCitra.Core
                         var label = result[i, j];
 
                         if (label != 0)
-                            blob[label - 1].Add(new Point(i, j));
+                            blob[label - 1].Add(new Point(j, i));
                     }
                 }
 
@@ -801,16 +801,107 @@ namespace OlahCitra.Core
                     colorLabel.Add(Color.FromArgb(randR, randG, randB));
                 }
 
-                for(int i = 0; i < listBlob.Count; i++)
+                for (int i = 0; i < listBlob.Count; i++)
                     foreach (var point in listBlob[i])
                     {
-                        resultImage[point.X, point.Y] = new Bgr(colorLabel[i].B, colorLabel[i].G, colorLabel[i].R);
+                        resultImage[point.Y, point.X] = new Bgr(colorLabel[i].B, colorLabel[i].G, colorLabel[i].R);
                     }
 
                 outImage = resultImage.ToBitmap();
             }
 
             return (outImage, listBlob);
+        }
+
+        //Skala : luas/piksel
+        public static Bitmap HitungLuas(Bitmap original, List<List<Point>> blobs, double skala)
+        {
+            var outImage = new Bitmap(original.Width, original.Height);
+
+            List<double> luas = new List<double>();
+            List<Point> centers = new List<Point>();
+
+            foreach (var blob in blobs)
+            {
+                luas.Add((double)blob.Count * skala);
+
+                var minPoint = new Point(int.MaxValue, int.MaxValue);
+                var maxPoint = new Point(0, 0);
+
+                //foreach (var point in blob)
+                //{
+                //    if (point.X < minPoint.X)
+                //        minPoint.X = point.X;
+
+                //    if (point.X > maxPoint.X)
+                //        maxPoint.X = point.X;
+
+                //    if (point.Y < minPoint.Y)
+                //        minPoint.Y = point.Y;
+
+                //    if (point.Y > maxPoint.Y)
+                //        maxPoint.Y = point.Y;
+                //}
+
+                //var width = minPoint.X - maxPoint.X;
+                //var height = maxPoint.Y - maxPoint.Y;
+
+                //var center = new Point(minPoint.X + width / 2, minPoint.Y + height / 2);
+
+                var center = new Point(0, 0);
+
+                foreach (var point in blob)
+                {
+                    center.X += point.X;    
+                    center.Y += point.Y;    
+                }
+
+                center.X = center.X / blob.Count;
+                center.Y = center.Y / blob.Count;
+
+                centers.Add(center);
+            }
+
+            var blobImage = new Bitmap(original.Width, original.Height);
+
+            using (var g = Graphics.FromImage(blobImage))
+            {
+                g.Clear(Color.FromArgb(0, 0, 0));
+            }
+
+            foreach (var blob in blobs)
+                foreach (var point in blob)
+                    blobImage.SetPixel(point.X, point.Y, Color.FromArgb(255, 255, 255));
+
+            using (var blobImageGray = blobImage.ToImage<Gray, byte>())
+            using (var countur = new Matrix<byte>(blobImageGray.Rows, blobImageGray.Cols))
+            using (var result = original.ToImage<Bgr, byte>())
+            {
+                CvInvoke.Canny(blobImageGray, countur, 60, 90);
+
+                for (var x = 0; x < countur.Cols; x++)
+                    for(var y = 0; y < countur.Rows; y++)
+                    {
+                        if (countur[y, x] > 0)
+                            result[y, x] = new Bgr(255, 0, 0);
+                    }
+
+                for (var i = 0; i < centers.Count; i++)
+                {
+                    var origin = centers[i];
+
+                    if((result.Width - origin.X) <= 200)
+                    {
+                        origin.X -= 230;
+                    }
+
+                    CvInvoke.PutText(result, $"Luas : {(int)luas[i]} m2", origin, FontFace.HersheyPlain, 2, new MCvScalar(0, 0, 0), 3);
+                }
+                
+                outImage = result.ToBitmap();
+            }
+            
+            return outImage;
         }
     }
 }

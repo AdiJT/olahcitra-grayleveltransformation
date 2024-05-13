@@ -31,8 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOlahCitra));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonBlobDetection = new System.Windows.Forms.RadioButton();
+            this.radioButtonHSVColorSegmentation = new System.Windows.Forms.RadioButton();
             this.radioButtonColorCorrection = new System.Windows.Forms.RadioButton();
             this.radioButtonCanny = new System.Windows.Forms.RadioButton();
             this.radioButtonPreProcessing = new System.Windows.Forms.RadioButton();
@@ -64,17 +68,14 @@
             this.radioButtonNegatif = new System.Windows.Forms.RadioButton();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonTransform = new System.Windows.Forms.Button();
             this.buttonOpenImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonHSVColorSegmentation = new System.Windows.Forms.RadioButton();
-            this.pictureBoxAsli = new OlahCitra.CustomControl.CustomPictureBox();
-            this.pictureBoxHasil = new OlahCitra.CustomControl.CustomPictureBox();
-            this.pictureBoxGrayScale = new OlahCitra.CustomControl.CustomPictureBox();
-            this.radioButtonBlobDetection = new System.Windows.Forms.RadioButton();
+            this.radioButtonHitungLuas = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -115,6 +116,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Foto Asli";
             // 
+            // pictureBoxAsli
+            // 
+            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
+            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxAsli.Name = "pictureBoxAsli";
+            this.pictureBoxAsli.Size = new System.Drawing.Size(367, 360);
+            this.pictureBoxAsli.TabIndex = 0;
+            this.pictureBoxAsli.Title = "Foto Asli";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBoxHasil);
@@ -126,9 +137,20 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hasil Transformasi";
             // 
+            // pictureBoxHasil
+            // 
+            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
+            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxHasil.Name = "pictureBoxHasil";
+            this.pictureBoxHasil.Size = new System.Drawing.Size(368, 360);
+            this.pictureBoxHasil.TabIndex = 0;
+            this.pictureBoxHasil.Title = "Hasil Transformasi";
+            // 
             // groupBox4
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 3);
+            this.groupBox4.Controls.Add(this.radioButtonHitungLuas);
             this.groupBox4.Controls.Add(this.radioButtonBlobDetection);
             this.groupBox4.Controls.Add(this.radioButtonHSVColorSegmentation);
             this.groupBox4.Controls.Add(this.radioButtonColorCorrection);
@@ -168,6 +190,30 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Transformasi";
+            // 
+            // radioButtonBlobDetection
+            // 
+            this.radioButtonBlobDetection.AutoSize = true;
+            this.radioButtonBlobDetection.Location = new System.Drawing.Point(918, 19);
+            this.radioButtonBlobDetection.Name = "radioButtonBlobDetection";
+            this.radioButtonBlobDetection.Size = new System.Drawing.Size(95, 17);
+            this.radioButtonBlobDetection.TabIndex = 37;
+            this.radioButtonBlobDetection.TabStop = true;
+            this.radioButtonBlobDetection.Text = "Blob Detection";
+            this.radioButtonBlobDetection.UseVisualStyleBackColor = true;
+            this.radioButtonBlobDetection.CheckedChanged += new System.EventHandler(this.radioButtonBlobDetection_CheckedChanged);
+            // 
+            // radioButtonHSVColorSegmentation
+            // 
+            this.radioButtonHSVColorSegmentation.AutoSize = true;
+            this.radioButtonHSVColorSegmentation.Location = new System.Drawing.Point(748, 134);
+            this.radioButtonHSVColorSegmentation.Name = "radioButtonHSVColorSegmentation";
+            this.radioButtonHSVColorSegmentation.Size = new System.Drawing.Size(142, 17);
+            this.radioButtonHSVColorSegmentation.TabIndex = 36;
+            this.radioButtonHSVColorSegmentation.TabStop = true;
+            this.radioButtonHSVColorSegmentation.Text = "HSV Color Segmentation";
+            this.radioButtonHSVColorSegmentation.UseVisualStyleBackColor = true;
+            this.radioButtonHSVColorSegmentation.CheckedChanged += new System.EventHandler(this.radioButtonHSVColorSegmentation_CheckedChanged);
             // 
             // radioButtonColorCorrection
             // 
@@ -541,6 +587,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gray Scale";
             // 
+            // pictureBoxGrayScale
+            // 
+            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
+            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
+            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
+            this.pictureBoxGrayScale.Size = new System.Drawing.Size(367, 360);
+            this.pictureBoxGrayScale.TabIndex = 0;
+            this.pictureBoxGrayScale.Title = "Grey Scale";
+            // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
@@ -594,59 +650,17 @@
             // 
             this.saveFileDialog1.Filter = "Image Files|*.jpg|JPEG files|*.jpeg|All files|*.*";
             // 
-            // radioButtonHSVColorSegmentation
+            // radioButtonHitungLuas
             // 
-            this.radioButtonHSVColorSegmentation.AutoSize = true;
-            this.radioButtonHSVColorSegmentation.Location = new System.Drawing.Point(748, 134);
-            this.radioButtonHSVColorSegmentation.Name = "radioButtonHSVColorSegmentation";
-            this.radioButtonHSVColorSegmentation.Size = new System.Drawing.Size(142, 17);
-            this.radioButtonHSVColorSegmentation.TabIndex = 36;
-            this.radioButtonHSVColorSegmentation.TabStop = true;
-            this.radioButtonHSVColorSegmentation.Text = "HSV Color Segmentation";
-            this.radioButtonHSVColorSegmentation.UseVisualStyleBackColor = true;
-            this.radioButtonHSVColorSegmentation.CheckedChanged += new System.EventHandler(this.radioButtonHSVColorSegmentation_CheckedChanged);
-            // 
-            // pictureBoxAsli
-            // 
-            this.pictureBoxAsli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxAsli.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxAsli.Image")));
-            this.pictureBoxAsli.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxAsli.Name = "pictureBoxAsli";
-            this.pictureBoxAsli.Size = new System.Drawing.Size(367, 360);
-            this.pictureBoxAsli.TabIndex = 0;
-            this.pictureBoxAsli.Title = "Foto Asli";
-            // 
-            // pictureBoxHasil
-            // 
-            this.pictureBoxHasil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxHasil.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxHasil.Image")));
-            this.pictureBoxHasil.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxHasil.Name = "pictureBoxHasil";
-            this.pictureBoxHasil.Size = new System.Drawing.Size(368, 360);
-            this.pictureBoxHasil.TabIndex = 0;
-            this.pictureBoxHasil.Title = "Hasil Transformasi";
-            // 
-            // pictureBoxGrayScale
-            // 
-            this.pictureBoxGrayScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxGrayScale.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxGrayScale.Image")));
-            this.pictureBoxGrayScale.Location = new System.Drawing.Point(3, 16);
-            this.pictureBoxGrayScale.Name = "pictureBoxGrayScale";
-            this.pictureBoxGrayScale.Size = new System.Drawing.Size(367, 360);
-            this.pictureBoxGrayScale.TabIndex = 0;
-            this.pictureBoxGrayScale.Title = "Grey Scale";
-            // 
-            // radioButtonBlobDetection
-            // 
-            this.radioButtonBlobDetection.AutoSize = true;
-            this.radioButtonBlobDetection.Location = new System.Drawing.Point(918, 19);
-            this.radioButtonBlobDetection.Name = "radioButtonBlobDetection";
-            this.radioButtonBlobDetection.Size = new System.Drawing.Size(95, 17);
-            this.radioButtonBlobDetection.TabIndex = 37;
-            this.radioButtonBlobDetection.TabStop = true;
-            this.radioButtonBlobDetection.Text = "Blob Detection";
-            this.radioButtonBlobDetection.UseVisualStyleBackColor = true;
-            this.radioButtonBlobDetection.CheckedChanged += new System.EventHandler(this.radioButtonBlobDetection_CheckedChanged);
+            this.radioButtonHitungLuas.AutoSize = true;
+            this.radioButtonHitungLuas.Location = new System.Drawing.Point(918, 43);
+            this.radioButtonHitungLuas.Name = "radioButtonHitungLuas";
+            this.radioButtonHitungLuas.Size = new System.Drawing.Size(82, 17);
+            this.radioButtonHitungLuas.TabIndex = 38;
+            this.radioButtonHitungLuas.TabStop = true;
+            this.radioButtonHitungLuas.Text = "Hitung Luas";
+            this.radioButtonHitungLuas.UseVisualStyleBackColor = true;
+            this.radioButtonHitungLuas.CheckedChanged += new System.EventHandler(this.radioButtonHitungLuas_CheckedChanged);
             // 
             // FormOlahCitra
             // 
@@ -716,6 +730,7 @@
         private System.Windows.Forms.RadioButton radioButtonColorCorrection;
         private System.Windows.Forms.RadioButton radioButtonHSVColorSegmentation;
         private System.Windows.Forms.RadioButton radioButtonBlobDetection;
+        private System.Windows.Forms.RadioButton radioButtonHitungLuas;
     }
 }
 

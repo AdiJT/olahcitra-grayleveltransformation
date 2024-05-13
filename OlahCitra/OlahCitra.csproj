@@ -112,6 +112,13 @@
       <DependentUpon>FormOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Strategy\GreenSegmentation\GreenSegmentationStrategy.cs" />
+    <Compile Include="Strategy\HitungLuas\FormHasil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\HitungLuas\FormHasil.Designer.cs">
+      <DependentUpon>FormHasil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strategy\HitungLuas\HitungLuasStrategy.cs" />
     <Compile Include="Strategy\HSVColorSegmentation\FormOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Strategy\GrayLevelSplit\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strategy\HitungLuas\FormHasil.resx">
+      <DependentUpon>FormHasil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strategy\HSVColorSegmentation\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>

@@ -28,6 +28,7 @@ using OlahCitra.Strategy.Canny;
 using OlahCitra.Strategy.ColorCorrection;
 using OlahCitra.Strategy.HSVColorSegmentation;
 using OlahCitra.Strategy.BlobDetection;
+using OlahCitra.Strategy.HitungLuas;
 
 namespace OlahCitra
 {
@@ -307,6 +308,12 @@ namespace OlahCitra
         {
             if (radioButtonBlobDetection.Checked == true)
                 _currentStrategy = new BlobDetectionStrategy(this);
+        }
+
+        private void radioButtonHitungLuas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonHitungLuas.Checked == true)
+                _currentStrategy = new HitungLuasStrategy(this);
         }
     }
 }
